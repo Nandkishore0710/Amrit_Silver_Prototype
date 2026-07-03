@@ -31,7 +31,6 @@ const Navbar = () => {
 
           {/* Center Logo */}
           <Link to="/" className="flex items-center justify-center text-decoration-none gap-3">
-            <img src="/logo.png" alt="Amrit Silver Logo" className="h-12 w-auto object-contain" onError={(e) => e.target.style.display = 'none'} />
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[#4A0000] capitalize font-serif" style={{ fontFamily: 'Georgia, serif' }}>
               Amrit Silver
             </h1>
