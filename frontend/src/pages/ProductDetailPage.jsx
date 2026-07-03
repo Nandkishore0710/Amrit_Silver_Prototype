@@ -11,6 +11,7 @@ import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import toast from 'react-hot-toast';
 import api from '../api';
+import clsx from 'clsx';
 
 const ProductDetailPage = () => {
   const { slug } = useParams();

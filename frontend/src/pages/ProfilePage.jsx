@@ -65,21 +65,21 @@ const ProfilePage = () => {
   return (
     <>
       <Helmet><title>My Profile — Silverkaari</title></Helmet>
-      <div className="page-container py-10">
-        <h1 className="font-serif text-4xl text-white mb-8">My Account</h1>
+      <div className="page-container py-10 bg-white min-h-screen">
+        <h1 className="font-serif text-4xl text-[#1F1F1F] font-bold mb-8" style={{ fontFamily: 'Georgia, serif' }}>My Account</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="card p-6 text-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gold-700 to-gold-500 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
+            <div className="card p-6 text-center bg-stone-50 border border-stone-200 shadow-sm rounded-lg">
+              <div className="w-20 h-20 rounded-full bg-[#c8a97e] flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
                 {user?.avatar ? (
                   <img src={user.avatar} alt={user.name} className="w-full h-full rounded-full object-cover" />
                 ) : getInitials(user?.name)}
               </div>
-              <p className="text-white font-semibold">{user?.name}</p>
-              <p className="text-silver-600 text-sm">{user?.email}</p>
-              <span className={`badge mt-2 ${user?.role === 'admin' ? 'badge-gold' : 'badge-silver'}`}>
+              <p className="text-[#1F1F1F] font-bold">{user?.name}</p>
+              <p className="text-stone-500 text-sm mb-2">{user?.email}</p>
+              <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${user?.role === 'admin' ? 'bg-[#c8a97e]/10 text-[#c8a97e] border border-[#c8a97e]/20' : 'bg-stone-200 text-stone-600'}`}>
                 {user?.role}
               </span>
             </div>
@@ -87,8 +87,8 @@ const ProfilePage = () => {
             <nav className="mt-4 space-y-1">
               {['profile', 'security'].map(t => (
                 <button key={t} onClick={() => setTab(t)}
-                  className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors capitalize ${
-                    tab === t ? 'bg-gold-600/20 text-gold-400' : 'text-silver-400 hover:text-white hover:bg-white/5'
+                  className={`w-full text-left px-4 py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-colors ${
+                    tab === t ? 'bg-[#1F1F1F] text-white shadow-md' : 'text-stone-500 hover:text-[#1F1F1F] hover:bg-stone-100'
                   }`}>
                   {t === 'profile' ? '👤 Profile Info' : '🔒 Security'}
                 </button>
@@ -99,76 +99,76 @@ const ProfilePage = () => {
           {/* Content */}
           <div className="lg:col-span-3">
             {tab === 'profile' && (
-              <form onSubmit={handleSubmit(onProfileSubmit)} className="card p-6 space-y-5">
-                <h2 className="font-serif text-2xl text-white">Profile Information</h2>
+              <form onSubmit={handleSubmit(onProfileSubmit)} className="card p-6 space-y-5 bg-stone-50 border border-stone-200 shadow-sm rounded-lg">
+                <h2 className="font-serif text-2xl text-[#1F1F1F] font-bold" style={{ fontFamily: 'Georgia, serif' }}>Profile Information</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="input-label">Full Name *</label>
-                    <input {...register('name', { required: 'Name is required' })} className="input" />
-                    {errors.name && <p className="input-error">{errors.name.message}</p>}
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Full Name *</label>
+                    <input {...register('name', { required: 'Name is required' })} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" />
+                    {errors.name && <p className="text-red-500 text-xs mt-1 font-medium">{errors.name.message}</p>}
                   </div>
                   <div>
-                    <label className="input-label">Phone</label>
-                    <input {...register('phone')} className="input" placeholder="10-digit number" />
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Phone</label>
+                    <input {...register('phone')} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" placeholder="10-digit number" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="input-label">Street Address</label>
-                  <input {...register('address.street')} className="input" placeholder="House/Flat No., Street" />
+                  <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Street Address</label>
+                  <input {...register('address.street')} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" placeholder="House/Flat No., Street" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="input-label">City</label>
-                    <input {...register('address.city')} className="input" />
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">City</label>
+                    <input {...register('address.city')} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" />
                   </div>
                   <div>
-                    <label className="input-label">State</label>
-                    <select {...register('address.state')} className="input">
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">State</label>
+                    <select {...register('address.state')} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm">
                       <option value="">Select State</option>
                       {INDIA_STATES.map(s => <option key={s}>{s}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="input-label">Pincode</label>
-                    <input {...register('address.pincode')} className="input" maxLength={6} />
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Pincode</label>
+                    <input {...register('address.pincode')} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" maxLength={6} />
                   </div>
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <button type="submit" disabled={!isDirty} className="btn-primary">Save Changes</button>
-                  <button type="button" onClick={() => reset()} disabled={!isDirty} className="btn-secondary">Cancel</button>
+                  <button type="submit" disabled={!isDirty} className="bg-black text-white hover:bg-[#c8a97e] font-bold uppercase tracking-wider transition-colors py-3 px-6 rounded shadow-lg disabled:opacity-50">Save Changes</button>
+                  <button type="button" onClick={() => reset()} disabled={!isDirty} className="bg-stone-200 text-stone-700 hover:bg-stone-300 font-bold uppercase tracking-wider transition-colors py-3 px-6 rounded shadow-sm disabled:opacity-50">Cancel</button>
                 </div>
               </form>
             )}
 
             {tab === 'security' && (
-              <form onSubmit={handlePwd(onChangePassword)} className="card p-6 space-y-5">
-                <h2 className="font-serif text-2xl text-white">Change Password</h2>
+              <form onSubmit={handlePwd(onChangePassword)} className="card p-6 space-y-5 bg-stone-50 border border-stone-200 shadow-sm rounded-lg">
+                <h2 className="font-serif text-2xl text-[#1F1F1F] font-bold" style={{ fontFamily: 'Georgia, serif' }}>Change Password</h2>
 
                 {!user?.password && !user?.googleId ? null : user?.googleId && !user?.password ? (
-                  <div className="p-4 bg-blue-900/20 border border-blue-700/30 rounded-xl">
-                    <p className="text-blue-400 text-sm">You signed in with Google. Use the "Forgot Password" flow to set a password for email login.</p>
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-blue-700 text-sm font-medium">You signed in with Google. Use the "Forgot Password" flow to set a password for email login.</p>
                   </div>
                 ) : (
                   <>
                     <div>
-                      <label className="input-label">Current Password *</label>
-                      <input type="password" {...regPwd('currentPassword', { required: 'Required' })} className="input" />
-                      {pwdErrors.currentPassword && <p className="input-error">{pwdErrors.currentPassword.message}</p>}
+                      <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Current Password *</label>
+                      <input type="password" {...regPwd('currentPassword', { required: 'Required' })} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" />
+                      {pwdErrors.currentPassword && <p className="text-red-500 text-xs mt-1 font-medium">{pwdErrors.currentPassword.message}</p>}
                     </div>
                     <div>
-                      <label className="input-label">New Password *</label>
-                      <input type="password" {...regPwd('newPassword', { required: 'Required', minLength: { value: 8, message: 'Min 8 characters' } })} className="input" />
-                      {pwdErrors.newPassword && <p className="input-error">{pwdErrors.newPassword.message}</p>}
+                      <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">New Password *</label>
+                      <input type="password" {...regPwd('newPassword', { required: 'Required', minLength: { value: 8, message: 'Min 8 characters' } })} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" />
+                      {pwdErrors.newPassword && <p className="text-red-500 text-xs mt-1 font-medium">{pwdErrors.newPassword.message}</p>}
                     </div>
                     <div>
-                      <label className="input-label">Confirm New Password *</label>
-                      <input type="password" {...regPwd('confirmPassword', { required: 'Required' })} className="input" />
+                      <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Confirm New Password *</label>
+                      <input type="password" {...regPwd('confirmPassword', { required: 'Required' })} className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none shadow-sm" />
                     </div>
-                    <button type="submit" disabled={changingPassword} className="btn-primary">
+                    <button type="submit" disabled={changingPassword} className="bg-black text-white hover:bg-[#c8a97e] font-bold uppercase tracking-wider transition-colors py-3 px-6 rounded shadow-lg disabled:opacity-50">
                       {changingPassword ? 'Changing...' : 'Change Password'}
                     </button>
                   </>
