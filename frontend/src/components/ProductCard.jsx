@@ -6,7 +6,11 @@ import { FiHeart, FiBarChart2, FiEye, FiShoppingBag } from 'react-icons/fi';
 
 const ProductCard = ({ product, className = '' }) => {
   const primaryImage = getPrimaryImage(product?.images);
-  const hoverImage = product?.images?.length > 1 ? product.images[1] : primaryImage;
+  let hoverImage = primaryImage;
+  if (product?.images?.length > 1) {
+    const img2 = product.images[1];
+    hoverImage = typeof img2 === 'string' ? img2 : img2.url;
+  }
   const hasDiscount = product.salePrice && product.salePrice < product.price;
   const displayPrice = hasDiscount ? product.salePrice : product.price;
   const discountPercent = hasDiscount ? calcDiscount(product.price, product.salePrice) : 0;

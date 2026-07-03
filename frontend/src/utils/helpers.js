@@ -29,7 +29,8 @@ export const truncate = (text, maxLen = 100) =>
 // Get primary image
 export const getPrimaryImage = (images) => {
   if (!images || !Array.isArray(images) || images.length === 0) return '/placeholder.jpg';
-  return images[0];
+  const img = images.find(img => img.isPrimary) || images[0];
+  return typeof img === 'string' ? img : img.url;
 };
 
 // Order status colors
