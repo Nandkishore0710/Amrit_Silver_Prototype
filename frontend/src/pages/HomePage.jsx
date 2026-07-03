@@ -161,15 +161,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Legacy Footer Banner Info */}
-      <section className="py-20 border-t border-[#E9E9E9] bg-white">
-        <div className="container mx-auto px-4 max-w-[1320px] text-center">
-          <h2 className="text-3xl font-bold text-[#1F1F1F] mb-6">AMRIT SILVER: Premium Silver Covers</h2>
-          <p className="max-w-2xl mx-auto text-[#696C70] mb-10 text-[16px] leading-relaxed">
-            Amrit Silver brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance.
-          </p>
-        </div>
-      </section>
     </>
   );
 };

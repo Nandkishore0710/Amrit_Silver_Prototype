@@ -7,8 +7,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Lion+Cover", isPrimary: true },
-      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Lion+Cover+Side", isPrimary: false }
+      { url: "https://images.unsplash.com/photo-1542451313056-b7c8e6266459?q=80&w=800&auto=format&fit=crop", isPrimary: true },
+      { url: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=800&auto=format&fit=crop", isPrimary: false }
     ],
     category: "Mobile Covers",
     stock: 50,
@@ -25,8 +25,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Dwarkadhish+Cover", isPrimary: true },
-      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Dwarkadhish+Side", isPrimary: false }
+      { url: "https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=800&auto=format&fit=crop", isPrimary: true },
+      { url: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=800&auto=format&fit=crop", isPrimary: false }
     ],
     category: "Divine Lords",
     stock: 20,
@@ -43,8 +43,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Bloom+Cover", isPrimary: true },
-      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Bloom+Side", isPrimary: false }
+      { url: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=800&auto=format&fit=crop", isPrimary: true },
+      { url: "https://images.unsplash.com/photo-1542451313056-b7c8e6266459?q=80&w=800&auto=format&fit=crop", isPrimary: false }
     ],
     category: "Flower Bloom",
     stock: 15,
@@ -61,8 +61,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Narasimha+Cover", isPrimary: true },
-      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Narasimha+Side", isPrimary: false }
+      { url: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=800&auto=format&fit=crop", isPrimary: true },
+      { url: "https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=800&auto=format&fit=crop", isPrimary: false }
     ],
     category: "Idols",
     stock: 30,
@@ -79,8 +79,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Ganesh+Cover", isPrimary: true },
-      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Ganesh+Side", isPrimary: false }
+      { url: "https://images.unsplash.com/photo-1605170439002-90845e8c0137?q=80&w=800&auto=format&fit=crop", isPrimary: true },
+      { url: "https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=800&auto=format&fit=crop", isPrimary: false }
     ],
     category: "Mobile Covers",
     stock: 45,
@@ -97,7 +97,7 @@ export const mockProducts = [
     price: 12000.00,
     salePrice: 8500.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Custom+Name+Cover", isPrimary: true }
+      { url: "https://images.unsplash.com/photo-1542451313056-b7c8e6266459?q=80&w=800&auto=format&fit=crop", isPrimary: true }
     ],
     category: "Name and Logo",
     stock: 100,
@@ -114,7 +114,7 @@ export const mockProducts = [
     price: 14000.00,
     salePrice: 9999.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Raj+Gharana+Cover", isPrimary: true }
+      { url: "https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=800&auto=format&fit=crop", isPrimary: true }
     ],
     category: "Raj Gharana",
     stock: 10,
@@ -131,7 +131,7 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Om+Mandala+Cover", isPrimary: true }
+      { url: "https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=800&auto=format&fit=crop", isPrimary: true }
     ],
     category: "Jewelry",
     stock: 25,
@@ -148,7 +148,7 @@ export const mockProducts = [
     price: 8500.00,
     salePrice: 6500.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Vintage+Bracelet", isPrimary: true }
+      { url: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=800&auto=format&fit=crop", isPrimary: true }
     ],
     category: "Bracelets",
     stock: 15,
@@ -165,7 +165,7 @@ export const mockProducts = [
     price: 15500.00,
     salePrice: 12000.00,
     images: [
-      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Silver+Necklace", isPrimary: true }
+      { url: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=800&auto=format&fit=crop", isPrimary: true }
     ],
     category: "Jewelry",
     stock: 12,
