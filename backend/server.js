@@ -128,8 +128,11 @@ connectRedis().then(() => {
   logger.warn('Redis connection failed, continuing without Redis:', err);
 });
 
-server.listen(PORT, () => {
-  logger.info(`Silverkaari backend running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  server.listen(PORT, () => {
+    logger.info(`Silverkaari backend running on port ${PORT}`);
+  });
+}
 
 export { io };
+export default app;
