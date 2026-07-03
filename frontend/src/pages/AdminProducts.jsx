@@ -48,10 +48,10 @@ const AdminProducts = () => {
   const onSubmit = async (data) => {
     try {
       if (editProduct) {
-        mockDb.saveProduct({ ...editProduct, title: data.name, ...data });
+        mockDb.saveProduct({ ...editProduct, title: data.name, ...data, price: Number(data.price), salePrice: Number(data.salePrice) });
         toast.success('Product updated!');
       } else {
-        mockDb.saveProduct({ title: data.name, price: data.basePrice, ...data });
+        mockDb.saveProduct({ title: data.name, ...data, price: Number(data.price), salePrice: Number(data.salePrice) });
         toast.success('Product created!');
       }
       queryClient.invalidateQueries(['admin-products']);
@@ -68,7 +68,8 @@ const AdminProducts = () => {
     reset({
       name: product.title || product.name,
       category: product.category,
-      basePrice: product.price || product.basePrice,
+      price: product.price,
+      salePrice: product.salePrice || '',
       description: product.description
     });
     setModalOpen(true);
@@ -155,7 +156,14 @@ const AdminProducts = () => {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-silver-400 text-sm">{product.category}</td>
-                      <td className="px-4 py-3 text-gold-400 font-semibold text-sm">{formatCurrency(product.price || product.basePrice)}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-col">
+                          <span className="text-gold-400 font-semibold text-sm">{formatCurrency(product.salePrice || product.price)}</span>
+                          {product.salePrice && product.salePrice < product.price && (
+                            <span className="text-silver-600 text-xs line-through">{formatCurrency(product.price)}</span>
+                          )}
+                        </div>
+                      </td>
                       <td className="px-4 py-3">
                         <span className={clsx('text-sm font-medium',
                           product.totalStock === 0 ? 'text-red-400' :
@@ -240,11 +248,19 @@ const AdminProducts = () => {
                   </select>
                 </div>
 
-                <div>
-                  <label className="input-label">Base Price (₹) *</label>
-                  <input type="number" {...register('basePrice', { required: 'Required', min: { value: 0, message: 'Must be positive' } })}
-                    className="input" min={0} step={1} />
-                  {errors.basePrice && <p className="input-error">{errors.basePrice.message}</p>}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="input-label">Original Price (₹) *</label>
+                    <input type="number" {...register('price', { required: 'Required', min: { value: 0, message: 'Must be positive' } })}
+                      className="input" min={0} step={1} />
+                    {errors.price && <p className="input-error">{errors.price.message}</p>}
+                  </div>
+                  <div>
+                    <label className="input-label">Sale Price (₹)</label>
+                    <input type="number" {...register('salePrice', { min: { value: 0, message: 'Must be positive' } })}
+                      className="input" min={0} step={1} placeholder="Optional" />
+                    {errors.salePrice && <p className="input-error">{errors.salePrice.message}</p>}
+                  </div>
                 </div>
 
                 <div>
