@@ -158,11 +158,11 @@ const ProductDetailPage = () => {
 
             {/* Price */}
             <div className="flex items-end gap-3">
-              <span className="text-3xl font-bold text-[#1F1F1F]">{formatCurrency(finalPrice)}</span>
+              <span className="text-3xl font-bold text-[#1F1F1F]">{formatCurrency(finalPrice * quantity)}</span>
               {hasDiscount && (
                 <>
-                  <span className="text-stone-400 line-through text-lg font-medium">{formatCurrency(product.price)}</span>
-                  <span className="bg-red-50 text-red-600 border border-red-100 px-2 py-0.5 rounded text-xs font-bold uppercase">Save {formatCurrency(product.price - finalPrice)}</span>
+                  <span className="text-stone-400 line-through text-lg font-medium">{formatCurrency(product.price * quantity)}</span>
+                  <span className="bg-red-50 text-red-600 border border-red-100 px-2 py-0.5 rounded text-xs font-bold uppercase">Save {formatCurrency((product.price - finalPrice) * quantity)}</span>
                 </>
               )}
             </div>
