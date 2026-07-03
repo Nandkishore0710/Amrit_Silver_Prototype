@@ -1,14 +1,14 @@
 export const BRAND = {
-  name: 'Amrit Silver',
-  tagline: 'Handcrafted with Heritage',
-  email: 'hello@amritsilver.com',
+  name: 'Silverine',
+  tagline: 'Premium Silver Phone Covers',
+  email: 'hello@silverine.com',
   phone: '+91 98765 43210',
-  address: '123 Silver Lane, Jaipur, Rajasthan 302001',
+  address: '123 Heritage Lane, Jaipur, Rajasthan 302001',
   social: {
-    instagram: 'https://instagram.com/amritsilver',
-    facebook: 'https://facebook.com/amritsilver',
-    youtube: 'https://youtube.com/@amritsilver',
-    twitter: 'https://twitter.com/amritsilver'
+    instagram: 'https://instagram.com/silverine',
+    facebook: 'https://facebook.com/silverine',
+    youtube: 'https://youtube.com/silverine',
+    twitter: 'https://twitter.com/silverine'
   }
 };
 

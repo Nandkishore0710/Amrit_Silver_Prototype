@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 max-w-[1400px]">
         <div className="footer-custom">
             <div className="footer-col">
-              <h4>Amrit Silver</h4>
+              <h4>Silverine</h4>
               <Link to="#">About Us</Link>
               <Link to="#">Craftsmanship</Link>
               <Link to="#">Legacy</Link>
@@ -39,7 +39,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom-custom">
-        © {year} Amrit Silver. Redefining Silver Artistry.  <span style={{ margin: '0 12px' }}>|</span> 925 Sterling Silver since 1993
+        © {year} Silverine. All Rights Reserved. <span style={{ margin: '0 12px' }}>|</span> Quality Silver Phone Covers
       </div>
     </>
   );

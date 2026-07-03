@@ -21,22 +21,21 @@ const HomePage = () => {
 
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* hero */}
-        <div className="hero-custom">
-            <div className="hero-text">
-                <h1>Crafting <strong>Stories</strong> in Silver</h1>
-                <p>Since 1993, 92.5 sterling silver masterpieces — handcrafted, timeless, and rooted in India's heritage.</p>
-                <Link to="/products" className="btn-custom">Explore Collection</Link>
+        <div className="silverine-banner">
+            <div>
+                <h2>Crafting <strong>Stories</strong> in Silver</h2>
+                <p className="tagline">Premium 92.5 sterling silver phone covers and accessories.</p>
             </div>
-            <div className="hero-image">
-                <span><FaRing style={{ marginRight: '12px', display: 'inline-block' }} /> 925 Silver Legacy</span>
+            <div>
+                <Link to="/products" className="silverine-badge">Shop Collection</Link>
             </div>
         </div>
 
         {/* new arrivals */}
         {(naLoading || newArrivals?.length > 0) && (
           <>
-            <div className="section-title-custom"><span>New</span> Arrivals</div>
-            <div className="product-grid-custom">
+            <div className="silverine-cats"><span>New Arrivals</span></div>
+            <div className="silverine-grid">
                 {naLoading
                   ? Array(8).fill(0).map((_, i) => <ProductCardSkeleton key={i} />)
                   : newArrivals?.slice(0, 16).map(product => (
@@ -50,8 +49,8 @@ const HomePage = () => {
         {/* featured products */}
         {(featuredLoading || featured?.length > 0) && (
           <>
-            <div className="section-title-custom"><span>Featured</span> Products</div>
-            <div className="product-grid-custom">
+            <div className="silverine-cats"><span>Featured Products</span></div>
+            <div className="silverine-grid">
                 {featuredLoading
                   ? Array(4).fill(0).map((_, i) => <ProductCardSkeleton key={i} />)
                   : featured?.map(product => (
@@ -65,8 +64,8 @@ const HomePage = () => {
         {/* best sellers */}
         {(bsLoading || bestSellers?.length > 0) && (
           <>
-            <div className="section-title-custom"><span>Best</span> Sellers</div>
-            <div className="product-grid-custom">
+            <div className="silverine-cats"><span>Best Sellers</span></div>
+            <div className="silverine-grid">
                 {bsLoading
                   ? Array(5).fill(0).map((_, i) => <ProductCardSkeleton key={i} />)
                   : bestSellers?.slice(0, 14).map(product => (
@@ -80,19 +79,13 @@ const HomePage = () => {
         {/* legacy */}
         <div className="legacy-section">
             <div className="legacy-text">
-                <h2><strong>Amrit Silver:</strong> Crafting Stories in Silver</h2>
-                <p>Since 1993, Amrit Silver has crafted timeless 92.5 sterling silver pieces, blending tradition with modern elegance. Each handcrafted masterpiece celebrates India’s rich heritage.</p>
+                <h2><strong>Silverine:</strong> Premium Silver Covers</h2>
+                <p>Silverine crafts premium 92.5 sterling silver phone covers and accessories, blending tradition with modern elegance.</p>
                 <div className="legacy-icons">
                     <div><FaGem style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>Pure 92.5 Silver</span></div>
-                    <div><FaHands style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>Handcrafted</span></div>
-                    <div><FaOm style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>Traditional Art</span></div>
-                    <div><FaCalendarAlt style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>32 Years Legacy</span></div>
                     <div><FaTruck style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>Free Shipping</span></div>
                     <div><FaGlobe style={{ fontSize: '28px', color: '#5a4a3a', marginBottom: '6px' }} /><span>Worldwide Shipping</span></div>
                 </div>
-            </div>
-            <div style={{ fontSize: '64px', color: '#b8a088', opacity: 0.3 }}>
-                <FaCrown />
             </div>
         </div>
       </div>

@@ -29,9 +29,9 @@
   }
 
   body {
-    background-color: #faf8f5;
-    color: #1e1e1e;
-    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     line-height: 1.6;
   }
@@ -196,6 +196,31 @@
       .hero-custom { grid-template-columns: 1fr; }
       .hero-text h1 { font-size: 36px; }
   }
+
+  /* ─── Silverine Theme Overhaul ──────────────────────────────────────────────────────── */
+  .silverine-logo { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: #1a1a1a; font-family: 'Inter', sans-serif;}
+  .silverine-logo span { color: #b8860b; font-weight: 300; }
+  .silverine-nav { display: flex; gap: 26px; font-weight: 500; font-size: 15px; }
+  .silverine-nav a { text-decoration: none; color: #1a1a1a; }
+  .silverine-nav a:hover { color: #b8860b; }
+  .silverine-banner { background: #f8f6f2; padding: 32px 24px; margin: 24px 0 32px; border-radius: 6px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+  .silverine-banner h2 { font-weight: 300; font-size: 28px; color: #1a1a1a;}
+  .silverine-banner h2 strong { font-weight: 700; color: #b8860b; }
+  .silverine-banner .tagline { color: #3a3a3a; font-size: 16px; margin-top: 6px; }
+  .silverine-badge { background: #b8860b; color: #fff; padding: 10px 28px; border-radius: 40px; font-weight: 600; font-size: 14px; text-decoration: none; display: inline-block; }
+  .silverine-cats { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0 32px; border-bottom: 1px solid #ececec; padding-bottom: 16px; }
+  .silverine-cats span { background: #f0ede8; padding: 6px 18px; border-radius: 30px; font-size: 14px; font-weight: 500; color: #1a1a1a; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer;}
+  .silverine-cats span.active { background: #1a1a1a; color: #fff; }
+  .silverine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px 18px; margin: 20px 0 36px; }
+  .silverine-card { background: #fff; border: 1px solid #f0ede8; padding: 16px 12px 18px; border-radius: 4px; transition: 0.2s; display: flex; flex-direction: column; text-decoration: none; position: relative; }
+  .silverine-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
+  .silverine-card .img-placeholder { background: #f4f1eb; height: 150px; border-radius: 2px; display: flex; align-items: center; justify-content: center; color: #7a6a5a; font-size: 13px; margin-bottom: 12px; background-image: repeating-linear-gradient(45deg, #e8e2da 0px, #e8e2da 1px, #f4f1eb 1px, #f4f1eb 6px); position: relative; overflow: hidden; }
+  .silverine-card .img-placeholder img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .silverine-card .product-title { font-weight: 600; font-size: 15px; line-height: 1.3; color: #1a1a1a; }
+  .silverine-card .product-price { font-weight: 700; margin: 6px 0 4px; font-size: 17px; color: #1a1a1a; }
+  .silverine-card .product-price s { font-weight: 400; color: #888; font-size: 14px; margin-left: 8px; text-decoration: line-through;}
+  .silverine-card .hot { background: #e63946; color: #fff; font-size: 11px; padding: 2px 12px; border-radius: 30px; display: inline-block; font-weight: 600; position: absolute; top: 10px; left: 10px; z-index: 10; }
+  .silverine-card .sale-flag { background: #b8860b; color: #fff; font-size: 10px; padding: 2px 12px; border-radius: 30px; display: inline-block; margin-top: 4px; }
 }
 
 /* ─── Utilities ─────────────────────────────────────────────────── */
