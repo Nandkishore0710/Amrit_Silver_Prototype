@@ -5,32 +5,30 @@ import clsx from 'clsx';
 
 const ProductCard = ({ product, className = '' }) => {
   const navigate = useNavigate();
-  const primaryImage = getPrimaryImage(product.images);
-  const hasDiscount = product.discount?.percentage && new Date(product.discount.validUntil) > new Date();
-  const discountedPrice = hasDiscount
-    ? product.basePrice * (1 - product.discount.percentage / 100)
-    : product.basePrice;
+  const primaryImage = getPrimaryImage(product?.images);
+  const hasDiscount = product.salePrice && product.salePrice < product.price;
+  const displayPrice = hasDiscount ? product.salePrice : product.price;
 
   return (
     <Link to={`/product/${product.slug}`} className={clsx('silverine-card', className)}>
         <div className="img-placeholder">
           <img
             src={primaryImage}
-            alt={product.name}
+            alt={product.title}
             loading="lazy"
             onError={(e) => { e.target.src = '/placeholder.jpg'; }}
           />
-          {product.tags?.includes('Limited Edition') && (
-            <span className="hot">Limited</span>
+          {product.featured && (
+            <span className="hot">Featured</span>
           )}
         </div>
         <div className="product-title">
-            {product.name}
+            {product.title}
         </div>
         <div className="product-price">
-            {formatCurrency(discountedPrice)}
+            {formatCurrency(displayPrice)}
             {hasDiscount && (
-              <s>{formatCurrency(product.basePrice)}</s>
+              <s>{formatCurrency(product.price)}</s>
             )}
         </div>
         {hasDiscount && (

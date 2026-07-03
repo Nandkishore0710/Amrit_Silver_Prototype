@@ -27,8 +27,10 @@ export const truncate = (text, maxLen = 100) =>
   text.length > maxLen ? `${text.slice(0, maxLen)}...` : text;
 
 // Get primary image
-export const getPrimaryImage = (images) =>
-  images?.find(img => img.isPrimary)?.url || images?.[0]?.url || '/placeholder.jpg';
+export const getPrimaryImage = (images) => {
+  if (!images || !Array.isArray(images) || images.length === 0) return '/placeholder.jpg';
+  return images[0];
+};
 
 // Order status colors
 export const ORDER_STATUS_COLORS = {

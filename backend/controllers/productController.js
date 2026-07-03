@@ -10,26 +10,19 @@ export const getProducts = async (req, res, next) => {
       limit = 20, page = 1, search, tags, featured, bestSeller, newArrival
     } = req.query;
 
-    const filter = { isActive: true };
+    const filter = {};
     if (category) filter.category = category;
-    if (subcategory) filter.subcategory = subcategory;
-    if (tags) filter.tags = { $in: tags.split(',') };
     if (featured === 'true') filter.featured = true;
-    if (bestSeller === 'true') filter.bestSeller = true;
-    if (newArrival === 'true') filter.newArrival = true;
     if (minPrice || maxPrice) {
-      filter.basePrice = {};
-      if (minPrice) filter.basePrice.$gte = Number(minPrice);
-      if (maxPrice) filter.basePrice.$lte = Number(maxPrice);
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
     }
     if (search) filter.$text = { $search: search };
 
     const sortOptions = {};
-    if (sort === 'price-asc') sortOptions.basePrice = 1;
-    else if (sort === 'price-desc') sortOptions.basePrice = -1;
-    else if (sort === 'rating') sortOptions['rating.average'] = -1;
-    else if (sort === 'newest') sortOptions.createdAt = -1;
-    else if (sort === 'popular') sortOptions.totalSold = -1;
+    if (sort === 'price-asc') sortOptions.price = 1;
+    else if (sort === 'price-desc') sortOptions.price = -1;
     else sortOptions.createdAt = -1;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -55,11 +48,9 @@ export const getProductBySlug = async (req, res, next) => {
     const cached = await cacheGet(cacheKey);
     if (cached) return res.status(200).json({ success: true, data: cached, cached: true });
 
-    const product = await Product.findOneAndUpdate(
-      { slug: req.params.slug, isActive: true },
-      { $inc: { views: 1 } },
-      { new: true }
-    ).populate('reviews.user', 'name avatar').lean();
+    const product = await Product.findOne(
+      { slug: req.params.slug }
+    ).lean();
 
     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
 
@@ -152,7 +143,7 @@ export const getFeaturedProducts = async (req, res, next) => {
   try {
     const cached = await cacheGet('products:featured');
     if (cached) return res.status(200).json({ success: true, data: cached });
-    const products = await Product.find({ featured: true, isActive: true }).limit(8).lean();
+    const products = await Product.find({ featured: true }).limit(8).lean();
     await cacheSet('products:featured', products, 1800);
     res.status(200).json({ success: true, data: products });
   } catch (error) { next(error); }
@@ -162,7 +153,7 @@ export const getBestSellers = async (req, res, next) => {
   try {
     const cached = await cacheGet('products:bestsellers');
     if (cached) return res.status(200).json({ success: true, data: cached });
-    const products = await Product.find({ bestSeller: true, isActive: true }).limit(10).lean();
+    const products = await Product.find({}).limit(10).lean();
     await cacheSet('products:bestsellers', products, 1800);
     res.status(200).json({ success: true, data: products });
   } catch (error) { next(error); }
@@ -172,7 +163,7 @@ export const getNewArrivals = async (req, res, next) => {
   try {
     const cached = await cacheGet('products:newarrivals');
     if (cached) return res.status(200).json({ success: true, data: cached });
-    const products = await Product.find({ newArrival: true, isActive: true }).sort({ createdAt: -1 }).limit(12).lean();
+    const products = await Product.find({}).sort({ createdAt: -1 }).limit(12).lean();
     await cacheSet('products:newarrivals', products, 1800);
     res.status(200).json({ success: true, data: products });
   } catch (error) { next(error); }
@@ -184,8 +175,7 @@ export const getRelatedProducts = async (req, res, next) => {
     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
     const related = await Product.find({
       category: product.category,
-      _id: { $ne: product._id },
-      isActive: true
+      _id: { $ne: product._id }
     }).limit(6).lean();
     res.status(200).json({ success: true, data: related });
   } catch (error) { next(error); }

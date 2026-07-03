@@ -39,9 +39,9 @@ const ProductDetailPage = () => {
   );
 
   const variant = selectedVariant || product.variants?.[0];
-  const price = variant?.discountPrice || variant?.price || product.basePrice;
-  const hasDiscount = product.discount?.percentage && new Date(product.discount.validUntil) > new Date();
-  const finalPrice = hasDiscount ? product.basePrice * (1 - product.discount.percentage / 100) : price;
+  const price = variant?.price || product.price;
+  const hasDiscount = product.salePrice && product.salePrice < product.price;
+  const finalPrice = hasDiscount ? product.salePrice : price;
   const primaryImg = getPrimaryImage(product.images);
 
   const handleAddToCart = () => {
@@ -73,8 +73,8 @@ const ProductDetailPage = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} — Silverkaari</title>
-        <meta name="description" content={product.shortDescription || product.description?.slice(0, 160)} />
+        <title>{product.title} — Silverine</title>
+        <meta name="description" content={product.description?.slice(0, 160)} />
         <meta property="og:image" content={primaryImg} />
       </Helmet>
 
@@ -87,7 +87,7 @@ const ProductDetailPage = () => {
           <FiChevronRight size={14} />
           <Link to={`/products?category=${product.category}`} className="hover:text-gold-400 transition-colors">{product.category}</Link>
           <FiChevronRight size={14} />
-          <span className="text-silver-400 truncate max-w-[200px]">{product.name}</span>
+          <span className="text-silver-400 truncate max-w-[200px]">{product.title}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
@@ -97,8 +97,8 @@ const ProductDetailPage = () => {
               <AnimatePresence mode="wait">
                 <motion.img
                   key={selectedImage}
-                  src={product.images?.[selectedImage]?.url || primaryImg}
-                  alt={product.name}
+                  src={product.images?.[selectedImage] || primaryImg}
+                  alt={product.title}
                   className="w-full h-full object-cover"
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -109,7 +109,7 @@ const ProductDetailPage = () => {
 
               {hasDiscount && (
                 <div className="absolute top-4 left-4 badge-danger px-3 py-1 text-sm font-bold">
-                  {calcDiscount(product.basePrice, finalPrice)}% OFF
+                  Sale
                 </div>
               )}
             </div>
@@ -122,7 +122,7 @@ const ProductDetailPage = () => {
                     onClick={() => setSelectedImage(i)}
                     className={clsx('shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 transition-all',
                       i === selectedImage ? 'border-gold-500' : 'border-white/10 hover:border-white/30')}>
-                    <img src={img.url} alt={img.alt || product.name} className="w-full h-full object-cover" />
+                    <img src={img} alt={product.title} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -138,7 +138,7 @@ const ProductDetailPage = () => {
             </div>
 
             <div>
-              <h1 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-3">{product.name}</h1>
+              <h1 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-3">{product.title}</h1>
 
               {/* Rating */}
               {product.rating?.count > 0 && (
@@ -160,8 +160,8 @@ const ProductDetailPage = () => {
               <span className="text-3xl font-bold text-gold-400">{formatCurrency(finalPrice)}</span>
               {hasDiscount && (
                 <>
-                  <span className="text-silver-600 line-through text-lg">{formatCurrency(product.basePrice)}</span>
-                  <span className="badge-danger">Save {formatCurrency(product.basePrice - finalPrice)}</span>
+                  <span className="text-silver-600 line-through text-lg">{formatCurrency(product.price)}</span>
+                  <span className="badge-danger">Save {formatCurrency(product.price - finalPrice)}</span>
                 </>
               )}
             </div>
@@ -180,10 +180,8 @@ const ProductDetailPage = () => {
                       className={clsx('px-4 py-2 rounded-xl text-sm font-medium border transition-all',
                         variant?._id === v._id || (!selectedVariant && i === 0)
                           ? 'border-gold-500 bg-gold-600/15 text-gold-400'
-                          : 'border-white/10 text-silver-400 hover:border-white/30',
-                        v.stock === 0 && 'opacity-40 cursor-not-allowed line-through')}>
-                      {v.metal} {v.attributes?.finish && `· ${v.attributes.finish}`}
-                      {v.attributes?.size && ` · Size ${v.attributes.size}`}
+                          : 'border-white/10 text-silver-400 hover:border-white/30')}>
+                      {v.model}
                     </button>
                   ))}
                 </div>
@@ -294,11 +292,7 @@ const ProductDetailPage = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {[
                     { label: 'Category', value: product.category },
-                    { label: 'Metal', value: variant?.metal },
-                    { label: 'Purity', value: variant?.purity ? `${variant.purity}%` : '-' },
-                    { label: 'Weight', value: variant?.weight ? `${variant.weight}g` : '-' },
-                    { label: 'Finish', value: variant?.attributes?.finish || '-' },
-                    { label: 'SKU', value: variant?.sku || '-' }
+                    { label: 'Stock', value: product.stock }
                   ].map(({ label, value }) => value && (
                     <div key={label} className="p-4 bg-dark-700/30 rounded-xl">
                       <p className="text-silver-600 text-xs uppercase tracking-wider mb-1">{label}</p>
