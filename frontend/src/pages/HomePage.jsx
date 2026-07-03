@@ -22,11 +22,11 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, [heroSlides.length]);
   const categories = [
-    { name: 'Divine Lords', image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=200&auto=format&fit=crop', link: '/products?category=Divine Lords' },
-    { name: 'Raj Gharana', image: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=200&auto=format&fit=crop', link: '/products?category=Raj Gharana' },
-    { name: 'Name and Logo', image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=200&auto=format&fit=crop', link: '/products?category=Name and Logo' },
-    { name: 'Flower Bloom', image: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=200&auto=format&fit=crop', link: '/products?category=Flower Bloom' },
-    { name: 'Spirit Animals', image: 'https://images.unsplash.com/photo-1605170439002-90845e8c0137?q=80&w=200&auto=format&fit=crop', link: '/products?category=Spirit Animals' },
+    { name: 'Divine Lords', image: 'https://www.silverine.in/wp-content/uploads/2025/09/LOGO4.png', link: '/products?category=Divine Lords' },
+    { name: 'Raj Gharana', image: 'https://www.silverine.in/wp-content/uploads/2025/09/LOGO3.png', link: '/products?category=Raj Gharana' },
+    { name: 'Name and Logo', image: 'https://www.silverine.in/wp-content/uploads/2025/09/LOGO5.png', link: '/products?category=Name and Logo' },
+    { name: 'Flower Bloom', image: 'https://www.silverine.in/wp-content/uploads/2025/09/LOGO2.png', link: '/products?category=Flower Bloom' },
+    { name: 'Spirit Animals', image: 'https://www.silverine.in/wp-content/uploads/2025/09/LOGO1.png', link: '/products?category=Spirit Animals' },
     { name: 'Custom Designs', image: 'https://images.unsplash.com/photo-1542451313056-b7c8e6266459?q=80&w=200&auto=format&fit=crop', link: '/products?category=Custom Designs' }
   ];
 
