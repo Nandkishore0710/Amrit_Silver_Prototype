@@ -93,7 +93,7 @@ const ProductDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
           {/* ─── Images ─── */}
           <div className="space-y-3">
-            <div className="relative overflow-hidden rounded-2xl bg-dark-800 aspect-square">
+            <div className="relative overflow-hidden rounded-2xl bg-dark-800 aspect-square group">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={selectedImage}

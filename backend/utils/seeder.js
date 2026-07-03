@@ -23,6 +23,7 @@ const products = [
     price: 18000,
     salePrice: 13197,
     images: ['https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800'],
+    model3d: 'https://sketchfab.com/models/97b77b05e4754b8a9e671ea0d9c7843d/embed',
     stock: 15,
     featured: true,
     variants: [{ model: 'iPhone 15 Pro Max' }]
