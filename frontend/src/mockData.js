@@ -7,10 +7,10 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/L2-500x667.png", isPrimary: true },
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/L2.png", isPrimary: false }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Lion+Cover", isPrimary: true },
+      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Lion+Cover+Side", isPrimary: false }
     ],
-    category: "Spirit Animals",
+    category: "Mobile Covers",
     stock: 50,
     featured: true,
     rating: 5,
@@ -25,8 +25,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/DWARKADHEESH-JI1-500x667.png", isPrimary: true },
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/DWARKADHEESH-JI2-500x667.png", isPrimary: false }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Dwarkadhish+Cover", isPrimary: true },
+      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Dwarkadhish+Side", isPrimary: false }
     ],
     category: "Divine Lords",
     stock: 20,
@@ -43,8 +43,8 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/BL1-500x667.png", isPrimary: true },
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/BL2-500x667.png", isPrimary: false }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Bloom+Cover", isPrimary: true },
+      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Bloom+Side", isPrimary: false }
     ],
     category: "Flower Bloom",
     stock: 15,
@@ -61,10 +61,10 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/N1-500x667.png", isPrimary: true },
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/N2-500x667.png", isPrimary: false }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Narasimha+Cover", isPrimary: true },
+      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Narasimha+Side", isPrimary: false }
     ],
-    category: "Divine Lords",
+    category: "Idols",
     stock: 30,
     featured: true,
     rating: 5,
@@ -79,10 +79,10 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/GN1-500x667.png", isPrimary: true },
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/GN3-500x667.png", isPrimary: false }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Ganesh+Cover", isPrimary: true },
+      { url: "https://placehold.co/500x667/E9E9E9/1F1F1F?text=Ganesh+Side", isPrimary: false }
     ],
-    category: "Divine Lords",
+    category: "Mobile Covers",
     stock: 45,
     featured: true,
     rating: 4.7,
@@ -97,7 +97,7 @@ export const mockProducts = [
     price: 12000.00,
     salePrice: 8500.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/LOGO5-240x320.png", isPrimary: true }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Custom+Name+Cover", isPrimary: true }
     ],
     category: "Name and Logo",
     stock: 100,
@@ -114,7 +114,7 @@ export const mockProducts = [
     price: 14000.00,
     salePrice: 9999.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/LOGO3-240x320.png", isPrimary: true }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Raj+Gharana+Cover", isPrimary: true }
     ],
     category: "Raj Gharana",
     stock: 10,
@@ -131,13 +131,47 @@ export const mockProducts = [
     price: 11232.00,
     salePrice: 7722.00,
     images: [
-      { url: "https://www.silverine.in/wp-content/uploads/2025/09/LOGO4-240x320.png", isPrimary: true }
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Om+Mandala+Cover", isPrimary: true }
     ],
-    category: "Divine Lords",
+    category: "Jewelry",
     stock: 25,
     featured: false,
     rating: 4.6,
     numReviews: 14,
+    variants: []
+  },
+  {
+    _id: "66f123abc4567890def1234d",
+    title: "VINTAGE SILVER BRACELET",
+    slug: "vintage-silver-bracelet",
+    description: "Premium handcrafted 92.5 sterling silver bracelet featuring vintage designs.",
+    price: 8500.00,
+    salePrice: 6500.00,
+    images: [
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Vintage+Bracelet", isPrimary: true }
+    ],
+    category: "Bracelets",
+    stock: 15,
+    featured: true,
+    rating: 4.8,
+    numReviews: 9,
+    variants: []
+  },
+  {
+    _id: "66f123abc4567890def1234e",
+    title: "ELEGANT SILVER NECKLACE",
+    slug: "elegant-silver-necklace",
+    description: "Premium handcrafted 92.5 sterling silver necklace for every occasion.",
+    price: 15500.00,
+    salePrice: 12000.00,
+    images: [
+      { url: "https://placehold.co/500x667/F7F7F7/1F1F1F?text=Silver+Necklace", isPrimary: true }
+    ],
+    category: "Jewelry",
+    stock: 12,
+    featured: true,
+    rating: 5.0,
+    numReviews: 21,
     variants: []
   }
 ];
