@@ -21,14 +21,13 @@ const HomePage = () => {
     }, 4000);
     return () => clearInterval(timer);
   }, [heroSlides.length]);
-
   const categories = [
     { name: 'Divine Lords', image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=200&auto=format&fit=crop', link: '/products?category=Divine Lords' },
     { name: 'Raj Gharana', image: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=200&auto=format&fit=crop', link: '/products?category=Raj Gharana' },
     { name: 'Name and Logo', image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=200&auto=format&fit=crop', link: '/products?category=Name and Logo' },
     { name: 'Flower Bloom', image: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=200&auto=format&fit=crop', link: '/products?category=Flower Bloom' },
-    { name: 'Spirit Animals', image: 'https://images.unsplash.com/photo-1551650992-ee4b52a59f51?q=80&w=200&auto=format&fit=crop', link: '/products?category=Spirit Animals' },
-    { name: 'Custom Designs', image: 'https://images.unsplash.com/photo-1575695328058-29be3797669d?q=80&w=200&auto=format&fit=crop', link: '/products?category=Custom Designs' }
+    { name: 'Spirit Animals', image: 'https://images.unsplash.com/photo-1605170439002-90845e8c0137?q=80&w=200&auto=format&fit=crop', link: '/products?category=Spirit Animals' },
+    { name: 'Custom Designs', image: 'https://images.unsplash.com/photo-1542451313056-b7c8e6266459?q=80&w=200&auto=format&fit=crop', link: '/products?category=Custom Designs' }
   ];
 
   return (
@@ -94,12 +93,12 @@ const HomePage = () => {
       {/* Filter Toggles (Best Seller / On Sale) */}
       <section className="py-8 bg-white border-b border-gray-100">
         <div className="container mx-auto flex justify-center gap-4">
-          <button className="px-8 py-3 bg-white border border-gray-200 shadow-sm rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-gray-50 transition-colors min-w-[160px]">
+          <Link to="/products?sort=popular" className="px-8 py-3 bg-white border border-gray-200 shadow-sm rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-gray-50 transition-colors min-w-[160px] text-center">
             Best Seller
-          </button>
-          <button className="px-8 py-3 bg-[#F5F5F5] border border-transparent rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-[#EAEAEA] transition-colors min-w-[160px]">
+          </Link>
+          <Link to="/products?sale=true" className="px-8 py-3 bg-[#F5F5F5] border border-transparent rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-[#EAEAEA] transition-colors min-w-[160px] text-center">
             On Sale
-          </button>
+          </Link>
         </div>
       </section>
 
