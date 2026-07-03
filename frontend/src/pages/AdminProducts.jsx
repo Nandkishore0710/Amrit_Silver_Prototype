@@ -65,20 +65,22 @@ const AdminProducts = () => {
 
   const openEdit = (product) => {
     setEditProduct(product);
-    reset({
-      name: product.title || product.name,
-      category: product.category,
-      price: product.price,
-      salePrice: product.salePrice || '',
-      description: product.description
-    });
     setModalOpen(true);
+    setTimeout(() => {
+      reset({
+        name: product.title || product.name,
+        category: product.category,
+        price: product.price,
+        salePrice: product.salePrice || '',
+        description: product.description
+      });
+    }, 0);
   };
 
   const openCreate = () => {
     setEditProduct(null);
-    reset({});
     setModalOpen(true);
+    setTimeout(() => reset({}), 0);
   };
 
   const products = data?.data || [];
@@ -235,14 +237,14 @@ const AdminProducts = () => {
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
-                  <label className="input-label">Product Name *</label>
-                  <input {...register('name', { required: 'Required' })} className="input" />
-                  {errors.name && <p className="input-error">{errors.name.message}</p>}
+                  <label className="block text-xs font-medium text-silver-400 mb-1.5">Product Name *</label>
+                  <input {...register('name', { required: 'Required' })} className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500" />
+                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div>
-                  <label className="input-label">Category *</label>
-                  <select {...register('category', { required: 'Required' })} className="input">
+                  <label className="block text-xs font-medium text-silver-400 mb-1.5">Category *</label>
+                  <select {...register('category', { required: 'Required' })} className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500">
                     <option value="">Select Category</option>
                     {CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                   </select>
@@ -250,32 +252,32 @@ const AdminProducts = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="input-label">Original Price (₹) *</label>
+                    <label className="block text-xs font-medium text-silver-400 mb-1.5">Original Price (₹) *</label>
                     <input type="number" {...register('price', { required: 'Required', min: { value: 0, message: 'Must be positive' } })}
-                      className="input" min={0} step={1} />
-                    {errors.price && <p className="input-error">{errors.price.message}</p>}
+                      className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500" min={0} step={1} />
+                    {errors.price && <p className="text-red-400 text-xs mt-1">{errors.price.message}</p>}
                   </div>
                   <div>
-                    <label className="input-label">Sale Price (₹)</label>
+                    <label className="block text-xs font-medium text-silver-400 mb-1.5">Sale Price (₹)</label>
                     <input type="number" {...register('salePrice', { min: { value: 0, message: 'Must be positive' } })}
-                      className="input" min={0} step={1} placeholder="Optional" />
-                    {errors.salePrice && <p className="input-error">{errors.salePrice.message}</p>}
+                      className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500" min={0} step={1} placeholder="Optional" />
+                    {errors.salePrice && <p className="text-red-400 text-xs mt-1">{errors.salePrice.message}</p>}
                   </div>
                 </div>
 
                 <div>
-                  <label className="input-label">Description *</label>
+                  <label className="block text-xs font-medium text-silver-400 mb-1.5">Description *</label>
                   <textarea {...register('description', { required: 'Required', minLength: { value: 20, message: 'Min 20 characters' } })}
-                    rows={4} className="input resize-none" />
-                  {errors.description && <p className="input-error">{errors.description.message}</p>}
+                    rows={4} className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500 resize-none" />
+                  {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description.message}</p>}
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <button type="submit" disabled={isSubmitting} className="btn-primary flex-1 justify-center">
+                  <button type="submit" disabled={isSubmitting} className="btn-primary flex-1 justify-center py-2.5">
                     {isSubmitting ? 'Saving...' : editProduct ? 'Update' : 'Create'}
                   </button>
                   <button type="button" onClick={() => { setModalOpen(false); setEditProduct(null); }}
-                    className="btn-secondary flex-1 justify-center">Cancel</button>
+                    className="btn-secondary flex-1 justify-center py-2.5">Cancel</button>
                 </div>
               </form>
             </motion.div>
