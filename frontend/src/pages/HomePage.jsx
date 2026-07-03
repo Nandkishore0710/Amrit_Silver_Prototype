@@ -27,10 +27,9 @@ const HomePage = () => {
       <section className="w-full relative bg-[#FAF7F1]">
         <Link to="/products">
           <picture>
-            {/* Desktop Banner Image from silverine.in */}
-            <source media="(min-width: 768px)" srcSet="https://www.silverine.in/wp-content/uploads/2024/09/Website-banner-scaled.jpg" />
+            <source media="(min-width: 768px)" srcSet="/hero_banner.png" />
             <img 
-              src="https://www.silverine.in/wp-content/uploads/2024/09/Website-banner-scaled.jpg" 
+              src="/hero_banner.png" 
               alt="Premium Silver Covers"
               className="w-full object-cover"
             />
