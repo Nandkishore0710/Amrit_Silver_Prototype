@@ -34,9 +34,7 @@ const Navbar = () => {
 
           {/* Center Logo */}
           <Link to="/" className="flex items-center justify-center text-decoration-none gap-3">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[#4A0000] capitalize font-serif" style={{ fontFamily: 'Georgia, serif' }}>
-              Amrit Silver
-            </h1>
+            <img src="/logo.png" alt="Amrit Silver Logo" className="h-16 md:h-20 object-contain" />
           </Link>
 
           {/* Right Menu (Desktop) */}

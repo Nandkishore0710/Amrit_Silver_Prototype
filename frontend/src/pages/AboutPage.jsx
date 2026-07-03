@@ -46,7 +46,7 @@ const AboutPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-16">
             <div className="w-full md:w-1/2">
               <img 
-                src="https://images.unsplash.com/photo-1541480601022-2308c0f01587?q=80&w=800&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=800&auto=format&fit=crop" 
                 alt="Silver Craftsmanship" 
                 className="w-full rounded-lg shadow-xl"
               />
