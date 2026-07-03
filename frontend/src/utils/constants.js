@@ -1,14 +1,14 @@
 export const BRAND = {
-  name: 'Silverkaari',
+  name: 'Amrit Silver',
   tagline: 'Handcrafted with Heritage',
-  email: 'hello@silverkaari.com',
+  email: 'hello@amritsilver.com',
   phone: '+91 98765 43210',
   address: '123 Silver Lane, Jaipur, Rajasthan 302001',
   social: {
-    instagram: 'https://instagram.com/silverkaari',
-    facebook: 'https://facebook.com/silverkaari',
-    youtube: 'https://youtube.com/@silverkaari',
-    twitter: 'https://twitter.com/silverkaari'
+    instagram: 'https://instagram.com/amritsilver',
+    facebook: 'https://facebook.com/amritsilver',
+    youtube: 'https://youtube.com/@amritsilver',
+    twitter: 'https://twitter.com/amritsilver'
   }
 };
 

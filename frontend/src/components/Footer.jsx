@@ -27,8 +27,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gold-600 flex items-center justify-center text-white font-bold text-sm">S</div>
-              <span className="font-serif text-xl text-white">Silverkaari</span>
+              <img src="/logo.png" alt="Amrit Silver" className="h-10 w-auto object-contain" />
             </Link>
             <p className="text-silver-600 text-sm leading-relaxed mb-4">{BRAND.tagline}. Pure 925 sterling silver crafted by India's master artisans.</p>
             <div className="flex gap-3">

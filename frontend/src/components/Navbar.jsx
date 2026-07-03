@@ -68,8 +68,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-full bg-gold-gradient flex items-center justify-center text-dark-900 font-bold text-sm">S</div>
-              <span className="font-serif text-xl text-white group-hover:text-gold-400 transition-colors tracking-wide">Silverkaari</span>
+              <img src="/logo.png" alt="Amrit Silver" className="h-12 w-auto object-contain transition-transform group-hover:scale-105" />
             </Link>
 
             {/* Desktop Nav */}
