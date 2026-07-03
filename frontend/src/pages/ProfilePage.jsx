@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
@@ -85,6 +86,11 @@ const ProfilePage = () => {
             </div>
 
             <nav className="mt-4 space-y-1">
+              {user?.role === 'admin' && (
+                <Link to="/admin" className="block w-full text-left px-4 py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-colors bg-blue-50 text-blue-700 hover:bg-blue-100 mb-2">
+                  🛡️ Admin Dashboard
+                </Link>
+              )}
               {['profile', 'security'].map(t => (
                 <button key={t} onClick={() => setTab(t)}
                   className={`w-full text-left px-4 py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-colors ${
