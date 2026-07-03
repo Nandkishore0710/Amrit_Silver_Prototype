@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatCurrency, getPrimaryImage, calcDiscount } from '../utils/helpers';
 import clsx from 'clsx';
 import { FiHeart, FiBarChart2, FiEye, FiShoppingBag } from 'react-icons/fi';
+import { toggleWishlistItem } from '../store/slices/wishlistSlice';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ product, className = '' }) => {
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state) => state.wishlist?.items || []);
+  const isWishlisted = wishlistItems.some(item => item._id === product._id);
+
   const primaryImage = getPrimaryImage(product?.images);
   let hoverImage = primaryImage;
   if (product?.images?.length > 1) {
@@ -14,6 +21,16 @@ const ProductCard = ({ product, className = '' }) => {
   const hasDiscount = product.salePrice && product.salePrice < product.price;
   const displayPrice = hasDiscount ? product.salePrice : product.price;
   const discountPercent = hasDiscount ? calcDiscount(product.price, product.salePrice) : 0;
+
+  const handleWishlistToggle = (e) => {
+    e.preventDefault();
+    dispatch(toggleWishlistItem(product));
+    if (isWishlisted) {
+      toast.success('Removed from wishlist');
+    } else {
+      toast.success('Added to wishlist');
+    }
+  };
 
   return (
     <div className={clsx('relative flex flex-col group', className)}>
@@ -41,8 +58,12 @@ const ProductCard = ({ product, className = '' }) => {
 
         {/* Floating Icons */}
         <div className="silverine-action-icons">
-          <button className="silverine-icon-btn" title="Add to wishlist">
-            <FiHeart size={16} />
+          <button 
+            className="silverine-icon-btn" 
+            title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            onClick={handleWishlistToggle}
+          >
+            <FiHeart size={16} fill={isWishlisted ? "#e3342f" : "none"} color={isWishlisted ? "#e3342f" : "currentColor"} />
           </button>
           <button className="silverine-icon-btn" title="Compare">
             <FiBarChart2 size={16} />

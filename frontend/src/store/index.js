@@ -4,6 +4,7 @@ import cartReducer from './slices/cartSlice';
 import productReducer from './slices/productSlice';
 import orderReducer from './slices/orderSlice';
 import uiReducer from './slices/uiSlice';
+import wishlistReducer from './slices/wishlistSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     cart: cartReducer,
     products: productReducer,
     orders: orderReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    wishlist: wishlistReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: { ignoredActions: ['persist/PERSIST'] } })

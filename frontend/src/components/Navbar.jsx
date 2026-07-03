@@ -3,12 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaShoppingBag, FaRegHeart, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
   const { count, toggle } = useCart();
+  const wishlistItems = useSelector((state) => state.wishlist?.items || []);
+  const wishlistCount = wishlistItems.length;
 
   return (
     <>
@@ -47,9 +50,14 @@ const Navbar = () => {
                 <span className="text-[10px] uppercase font-medium">Account</span>
               </Link>
 
-              <Link to="/wishlist" className="flex flex-col items-center gap-1 text-[#1F1F1F] hover:text-stone-600 transition-colors">
+              <Link to="/wishlist" className="relative flex flex-col items-center gap-1 text-[#1F1F1F] hover:text-stone-600 transition-colors">
                 <FaRegHeart size={18} />
                 <span className="text-[10px] uppercase font-medium">Wishlist</span>
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-2 bg-[#4A0000] text-white text-[9px] rounded-full w-[16px] h-[16px] flex items-center justify-center font-bold">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
 
               <button onClick={toggle} className="relative flex flex-col items-center gap-1 text-[#1F1F1F] hover:text-stone-600 transition-colors">
