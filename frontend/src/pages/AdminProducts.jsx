@@ -49,11 +49,21 @@ const AdminProducts = () => {
 
   const onSubmit = async (data) => {
     try {
+      const productPayload = {
+        title: data.name,
+        category: data.category,
+        description: data.description,
+        price: Number(data.price),
+        salePrice: data.salePrice ? Number(data.salePrice) : null,
+        featured: data.featured,
+        images: data.imageUrl ? [{ url: data.imageUrl, isPrimary: true }] : editProduct?.images || []
+      };
+
       if (editProduct) {
-        mockDb.saveProduct({ ...editProduct, title: data.name, ...data, price: Number(data.price), salePrice: Number(data.salePrice) });
+        mockDb.saveProduct({ ...editProduct, ...productPayload });
         toast.success('Product updated!');
       } else {
-        mockDb.saveProduct({ title: data.name, ...data, price: Number(data.price), salePrice: Number(data.salePrice) });
+        mockDb.saveProduct({ ...productPayload, stock: 10, rating: 5, numReviews: 0 });
         toast.success('Product created!');
       }
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
@@ -76,7 +86,9 @@ const AdminProducts = () => {
         category: product.category,
         price: product.price,
         salePrice: product.salePrice || '',
-        description: product.description
+        description: product.description,
+        featured: product.featured || false,
+        imageUrl: product.images?.[0]?.url || (typeof product.images?.[0] === 'string' ? product.images[0] : '')
       });
     }, 0);
   };
@@ -254,6 +266,11 @@ const AdminProducts = () => {
                   </select>
                 </div>
 
+                <div>
+                  <label className="block text-xs font-medium text-silver-400 mb-1.5">Main Image URL</label>
+                  <input {...register('imageUrl')} placeholder="https://example.com/image.jpg" className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500" />
+                </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-silver-400 mb-1.5">Original Price (₹) *</label>
@@ -274,6 +291,13 @@ const AdminProducts = () => {
                   <textarea {...register('description', { required: 'Required', minLength: { value: 20, message: 'Min 20 characters' } })}
                     rows={4} className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold-500 resize-none" />
                   {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description.message}</p>}
+                </div>
+
+                <div className="flex items-center gap-3 py-2">
+                  <input type="checkbox" id="featured" {...register('featured')} className="w-4 h-4 rounded bg-dark-800 border-white/10 text-gold-500 focus:ring-gold-500/50" />
+                  <label htmlFor="featured" className="text-sm font-medium text-white cursor-pointer">
+                    Featured (Show on Home Page)
+                  </label>
                 </div>
 
                 <div className="flex gap-3 pt-2">
