@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useFeaturedProducts } from '../hooks/useProducts';
@@ -7,51 +7,74 @@ import ProductCard, { ProductCardSkeleton } from '../components/ProductCard';
 const HomePage = () => {
   const { data: featured, isLoading: featuredLoading } = useFeaturedProducts();
   const [activeTab, setActiveTab] = useState('hotshots');
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroSlides = [
+    { image: '/slider1.png', bg: 'bg-[#C65D3B]' },
+    { image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#2b2b2b]' },
+    { image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#1a1a1a]' }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   const categories = [
-    { name: 'Royal Edition', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Royal', link: '/products?category=Royal Edition' },
-    { name: 'Rudraksh Jewellery', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Rudraksh', link: '/products?category=Rudraksh Jewellery' },
-    { name: 'Silver Idols', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Idols', link: '/products?category=Silver Idols' },
-    { name: 'Traditional', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Traditional', link: '/products?category=Traditional' },
-    { name: 'Stone Bracelet', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Bracelet', link: '/products?category=Stone Bracelet' },
-    { name: 'Silver God Pendants', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Pendants', link: '/products?category=Silver God Pendants' },
-    { name: 'Silver Rakhis', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Rakhis', link: '/products?category=Silver Rakhis' },
-    { name: 'Silver Antiques', image: 'https://placehold.co/200x200/F7F7F7/1F1F1F?text=Antiques', link: '/products?category=Silver Antiques' }
+    { name: 'Royal Edition', image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=200&auto=format&fit=crop', link: '/products?category=Royal Edition' },
+    { name: 'Rudraksh Jewellery', image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?q=80&w=200&auto=format&fit=crop', link: '/products?category=Rudraksh Jewellery' },
+    { name: 'Silver Idols', image: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=200&auto=format&fit=crop', link: '/products?category=Silver Idols' },
+    { name: 'Traditional', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=200&auto=format&fit=crop', link: '/products?category=Traditional' },
+    { name: 'Stone Bracelet', image: 'https://images.unsplash.com/photo-1573408301145-b98c46544665?q=80&w=200&auto=format&fit=crop', link: '/products?category=Stone Bracelet' },
+    { name: 'Silver God Pendants', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200&auto=format&fit=crop', link: '/products?category=Silver God Pendants' },
+    { name: 'Silver Rakhis', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=200&auto=format&fit=crop', link: '/products?category=Silver Rakhis' },
+    { name: 'Silver Antiques', image: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=200&auto=format&fit=crop', link: '/products?category=Silver Antiques' }
   ];
 
   return (
     <>
       <Helmet>
-        <title>SILVER PHONE COVER STORE - SILVERINE</title>
-        <meta name="description" content="SILVERINE brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance." />
+        <title>AMRIT SILVER - PREMIUM SILVER PHONE COVERS</title>
+        <meta name="description" content="Amrit Silver brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance." />
       </Helmet>
 
-      {/* Hero Banner Section */}
-      <section className="w-full relative bg-gradient-to-r from-[#d97c45] to-[#c15c2a] text-white overflow-hidden group">
+      {/* Hero Banner Section (Auto-Rotating Slider) */}
+      <section className={`w-full relative ${heroSlides[currentSlide].bg} text-white overflow-hidden group transition-colors duration-1000`}>
         
-        {/* Background Texture/Image (Placeholder for the rich background) */}
-        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] mix-blend-overlay"></div>
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center transition-all duration-1000 opacity-60 mix-blend-overlay"
+          style={{ backgroundImage: `url(${heroSlides[currentSlide].image})` }}
+        ></div>
         
         {/* Slider Controls */}
-        <button className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md">
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1))}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md"
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        <button className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md">
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md"
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path></svg>
         </button>
 
-        <div className="container mx-auto px-4 relative z-10 py-16 md:py-24 flex flex-col items-center text-center">
+        <div className="container mx-auto px-4 relative z-10 py-24 md:py-32 flex flex-col items-center text-center">
           
-          <h2 className="text-5xl md:text-7xl font-bold mb-4 font-serif text-white tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
-            Silverine
+          <h2 className="text-6xl md:text-8xl font-bold mb-4 font-serif text-white tracking-wide" style={{ fontFamily: 'Georgia, serif', textShadow: '2px 2px 8px rgba(0,0,0,0.3)' }}>
+            Amrit Silver
           </h2>
           
-          <h3 className="text-2xl md:text-4xl font-serif mb-6 text-[#2D2D2D]">
+          <h3 className="text-2xl md:text-4xl font-serif mb-6 text-white" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
             Where Protection Meets Pure Prestige.
           </h3>
           
-          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-10 max-w-2xl">
-            Get Your First Silverine Phone Cover and Step Into Luxury.
+          <p className="text-lg md:text-xl font-serif text-white mb-10 max-w-2xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+            Get Your First Amrit Silver Phone Cover and Step Into Luxury.
           </p>
           
           <Link to="/products" className="inline-flex items-center gap-3 bg-[#E8A317] hover:bg-[#D49315] text-white px-8 py-3 rounded-full font-bold text-lg uppercase tracking-wider transition-colors shadow-lg">
@@ -61,8 +84,8 @@ const HomePage = () => {
             </span>
           </Link>
           
-          <div className="mt-16 text-sm font-medium text-white/80 tracking-widest">
-            www.silverine.in
+          <div className="mt-16 text-sm font-medium text-white/80 tracking-widest uppercase">
+            www.amritsilver.in
           </div>
         </div>
       </section>
@@ -141,9 +164,9 @@ const HomePage = () => {
       {/* Legacy Footer Banner Info */}
       <section className="py-20 border-t border-[#E9E9E9] bg-white">
         <div className="container mx-auto px-4 max-w-[1320px] text-center">
-          <h2 className="text-3xl font-bold text-[#1F1F1F] mb-6">SILVERINE: Premium Silver Covers</h2>
+          <h2 className="text-3xl font-bold text-[#1F1F1F] mb-6">AMRIT SILVER: Premium Silver Covers</h2>
           <p className="max-w-2xl mx-auto text-[#696C70] mb-10 text-[16px] leading-relaxed">
-            Silverine brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance.
+            Amrit Silver brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance.
           </p>
         </div>
       </section>
