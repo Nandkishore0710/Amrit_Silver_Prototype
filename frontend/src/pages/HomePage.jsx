@@ -26,18 +26,57 @@ const HomePage = () => {
         <meta name="description" content="SILVERINE brings you premium handcrafted 92.5 sterling silver phone covers that combine luxury, durability, and timeless elegance." />
       </Helmet>
 
-      {/* Hero Banner */}
-      <section className="w-full relative bg-[#FAF7F1]">
-        <Link to="/products">
-          <picture>
-            <source media="(min-width: 768px)" srcSet="/hero_banner.png" />
-            <img 
-              src="/hero_banner.png" 
-              alt="Premium Silver Covers"
-              className="w-full object-cover"
-            />
-          </picture>
-        </Link>
+      {/* Hero Banner Section */}
+      <section className="w-full relative bg-gradient-to-r from-[#d97c45] to-[#c15c2a] text-white overflow-hidden group">
+        
+        {/* Background Texture/Image (Placeholder for the rich background) */}
+        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] mix-blend-overlay"></div>
+        
+        {/* Slider Controls */}
+        <button className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#1F1F1F] opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+
+        <div className="container mx-auto px-4 relative z-10 py-16 md:py-24 flex flex-col items-center text-center">
+          
+          <h2 className="text-5xl md:text-7xl font-bold mb-4 font-serif text-white tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
+            Silverine
+          </h2>
+          
+          <h3 className="text-2xl md:text-4xl font-serif mb-6 text-[#2D2D2D]">
+            Where Protection Meets Pure Prestige.
+          </h3>
+          
+          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-10 max-w-2xl">
+            Get Your First Silverine Phone Cover and Step Into Luxury.
+          </p>
+          
+          <Link to="/products" className="inline-flex items-center gap-3 bg-[#E8A317] hover:bg-[#D49315] text-white px-8 py-3 rounded-full font-bold text-lg uppercase tracking-wider transition-colors shadow-lg">
+            SHOP NOW
+            <span className="bg-white text-[#E8A317] rounded-full p-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          </Link>
+          
+          <div className="mt-16 text-sm font-medium text-white/80 tracking-widest">
+            www.silverine.in
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Toggles (Best Seller / On Sale) */}
+      <section className="py-8 bg-white border-b border-gray-100">
+        <div className="container mx-auto flex justify-center gap-4">
+          <button className="px-8 py-3 bg-white border border-gray-200 shadow-sm rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-gray-50 transition-colors min-w-[160px]">
+            Best Seller
+          </button>
+          <button className="px-8 py-3 bg-[#F5F5F5] border border-transparent rounded-lg text-lg font-bold text-[#1F1F1F] hover:bg-[#EAEAEA] transition-colors min-w-[160px]">
+            On Sale
+          </button>
+        </div>
       </section>
 
       {/* CATEGORIES Thumbnail Section */}
