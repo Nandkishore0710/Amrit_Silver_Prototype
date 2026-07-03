@@ -20,8 +20,10 @@ const Navbar = () => {
             <div className="relative group cursor-pointer flex items-center gap-1 text-[13px] font-bold text-[#1F1F1F] hover:text-[#4A4A4A] uppercase tracking-wide">
               COVER COLLECTION <FaChevronDown size={10} className="mt-0.5" />
               <div className="absolute top-full left-0 mt-4 w-48 bg-white border border-gray-200 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link to="/products?category=Royal Edition" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 border-b border-gray-50">Royal Edition</Link>
-                <Link to="/products?category=Rudraksh Jewellery" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50">Rudraksh Jewellery</Link>
+                <Link to="/products?category=Divine Lords" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 border-b border-gray-50">Divine Lords</Link>
+                <Link to="/products?category=Raj Gharana" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 border-b border-gray-50">Raj Gharana</Link>
+                <Link to="/products?category=Name and Logo" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 border-b border-gray-50">Name and Logo</Link>
+                <Link to="/products?category=Flower Bloom" className="block px-4 py-3 text-sm text-stone-700 hover:bg-stone-50">Flower Bloom</Link>
               </div>
             </div>
             <Link to="/" className="text-[13px] font-bold text-[#1F1F1F] uppercase tracking-wide border-b-2 border-[#1F1F1F] pb-1">HOME</Link>
