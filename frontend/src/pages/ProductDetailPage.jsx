@@ -30,9 +30,9 @@ const ProductDetailPage = () => {
 
   if (isLoading) return <LoadingSpinner fullScreen />;
   if (error || !product) return (
-    <div className="min-h-[60vh] flex items-center justify-center text-center">
+    <div className="min-h-[60vh] flex items-center justify-center text-center bg-white">
       <div>
-        <h2 className="font-serif text-2xl text-white mb-2">Product Not Found</h2>
+        <h2 className="font-serif text-2xl text-[#1F1F1F] mb-2">Product Not Found</h2>
         <Link to="/products" className="btn-primary mt-4">Back to Collection</Link>
       </div>
     </div>
@@ -78,26 +78,26 @@ const ProductDetailPage = () => {
         <meta property="og:image" content={primaryImg} />
       </Helmet>
 
-      <div className="page-container py-8">
+      <div className="page-container py-8 bg-white min-h-screen">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-silver-600 mb-6">
-          <Link to="/" className="hover:text-gold-400 transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-sm text-stone-500 mb-6 font-medium">
+          <Link to="/" className="hover:text-[#c8a97e] transition-colors">Home</Link>
           <FiChevronRight size={14} />
-          <Link to="/products" className="hover:text-gold-400 transition-colors">Collection</Link>
+          <Link to="/products" className="hover:text-[#c8a97e] transition-colors">Collection</Link>
           <FiChevronRight size={14} />
-          <Link to={`/products?category=${product.category}`} className="hover:text-gold-400 transition-colors">{product.category}</Link>
+          <Link to={`/products?category=${product.category}`} className="hover:text-[#c8a97e] transition-colors">{product.category}</Link>
           <FiChevronRight size={14} />
-          <span className="text-silver-400 truncate max-w-[200px]">{product.title}</span>
+          <span className="text-stone-800 truncate max-w-[200px]">{product.title}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
           {/* ─── Images ─── */}
           <div className="space-y-3">
-            <div className="relative overflow-hidden rounded-2xl bg-dark-800 aspect-square group">
+            <div className="relative overflow-hidden rounded-2xl bg-stone-50 aspect-square group border border-stone-100 shadow-sm">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={selectedImage}
-                  src={product.images?.[selectedImage] || primaryImg}
+                  src={product.images?.[selectedImage]?.url || primaryImg}
                   alt={product.title}
                   className="w-full h-full object-cover"
                   initial={{ opacity: 0, scale: 1.05 }}
@@ -108,7 +108,7 @@ const ProductDetailPage = () => {
               </AnimatePresence>
 
               {hasDiscount && (
-                <div className="absolute top-4 left-4 badge-danger px-3 py-1 text-sm font-bold">
+                <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 text-sm font-bold rounded shadow-sm tracking-wider uppercase">
                   Sale
                 </div>
               )}
@@ -120,9 +120,9 @@ const ProductDetailPage = () => {
                 {product.images.map((img, i) => (
                   <button key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={clsx('shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 transition-all',
-                      i === selectedImage ? 'border-gold-500' : 'border-white/10 hover:border-white/30')}>
-                    <img src={img} alt={product.title} className="w-full h-full object-cover" />
+                    className={clsx('shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 transition-all shadow-sm',
+                      i === selectedImage ? 'border-[#c8a97e]' : 'border-stone-200 hover:border-[#c8a97e]/50')}>
+                    <img src={img.url} alt={product.title} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -133,12 +133,12 @@ const ProductDetailPage = () => {
           <div className="space-y-6">
             {/* Category & badges */}
             <div className="flex flex-wrap gap-2">
-              <span className="badge-silver">{product.category}</span>
-              {product.tags?.map(tag => <span key={tag} className="badge-gold">{tag}</span>)}
+              <span className="bg-stone-100 text-stone-600 border border-stone-200 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">{product.category}</span>
+              {product.tags?.map(tag => <span key={tag} className="bg-[#c8a97e]/10 text-[#c8a97e] border border-[#c8a97e]/20 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">{tag}</span>)}
             </div>
 
             <div>
-              <h1 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-3">{product.title}</h1>
+              <h1 className="font-serif text-3xl md:text-4xl text-[#1F1F1F] font-bold leading-tight mb-3" style={{ fontFamily: 'Georgia, serif' }}>{product.title}</h1>
 
               {/* Rating */}
               {product.rating?.count > 0 && (
@@ -146,22 +146,22 @@ const ProductDetailPage = () => {
                   <div className="flex items-center">
                     {[1,2,3,4,5].map(i => (
                       <FiStar key={i} size={16}
-                        className={i <= Math.round(product.rating.average) ? 'text-gold-400 fill-gold-400' : 'text-silver-700'} />
+                        className={i <= Math.round(product.rating.average) ? 'text-[#c8a97e] fill-[#c8a97e]' : 'text-stone-300'} />
                     ))}
                   </div>
-                  <span className="text-gold-400 font-semibold">{product.rating.average}</span>
-                  <span className="text-silver-600 text-sm">({product.rating.count} reviews)</span>
+                  <span className="text-[#c8a97e] font-bold">{product.rating.average}</span>
+                  <span className="text-stone-500 text-sm font-medium">({product.rating.count} reviews)</span>
                 </div>
               )}
             </div>
 
             {/* Price */}
             <div className="flex items-end gap-3">
-              <span className="text-3xl font-bold text-gold-400">{formatCurrency(finalPrice)}</span>
+              <span className="text-3xl font-bold text-[#1F1F1F]">{formatCurrency(finalPrice)}</span>
               {hasDiscount && (
                 <>
-                  <span className="text-silver-600 line-through text-lg">{formatCurrency(product.price)}</span>
-                  <span className="badge-danger">Save {formatCurrency(product.price - finalPrice)}</span>
+                  <span className="text-stone-400 line-through text-lg font-medium">{formatCurrency(product.price)}</span>
+                  <span className="bg-red-50 text-red-600 border border-red-100 px-2 py-0.5 rounded text-xs font-bold uppercase">Save {formatCurrency(product.price - finalPrice)}</span>
                 </>
               )}
             </div>
@@ -169,24 +169,24 @@ const ProductDetailPage = () => {
             {/* Variants */}
             {product.variants?.length > 0 && (
               <div>
-                <label className="input-label">
+                <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">
                   Select Variant
-                  {variant && <span className="text-gold-400 ml-2">{variant.metal} — {variant.attributes?.finish}</span>}
+                  {variant && <span className="text-[#c8a97e] ml-2">{variant.metal} — {variant.attributes?.finish}</span>}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {product.variants.map((v, i) => (
                     <button key={i}
                       onClick={() => setSelectedVariant(v)}
-                      className={clsx('px-4 py-2 rounded-xl text-sm font-medium border transition-all',
+                      className={clsx('px-4 py-2 rounded text-sm font-bold uppercase transition-all shadow-sm border',
                         variant?._id === v._id || (!selectedVariant && i === 0)
-                          ? 'border-gold-500 bg-gold-600/15 text-gold-400'
-                          : 'border-white/10 text-silver-400 hover:border-white/30')}>
+                          ? 'border-[#1F1F1F] bg-[#1F1F1F] text-white'
+                          : 'border-stone-200 text-stone-600 hover:border-stone-300 bg-white')}>
                       {v.model}
                     </button>
                   ))}
                 </div>
                 {variant?.stock > 0 && variant?.stock <= 5 && (
-                  <p className="text-amber-400 text-xs mt-2">⚠️ Only {variant.stock} left in stock!</p>
+                  <p className="text-red-500 text-xs mt-2 font-medium">⚠️ Only {variant.stock} left in stock!</p>
                 )}
               </div>
             )}
@@ -194,33 +194,33 @@ const ProductDetailPage = () => {
             {/* Engraving */}
             {product.tags?.includes('Customizable') && (
               <div>
-                <label className="input-label">Custom Engraving (optional, max 30 characters)</label>
+                <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Custom Engraving (optional, max 30 characters)</label>
                 <input
                   type="text"
                   value={engraving}
                   onChange={(e) => setEngraving(e.target.value.slice(0, 30))}
                   placeholder="e.g. John & Sarah ♥"
-                  className="input text-sm"
+                  className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none transition-all shadow-sm"
                 />
-                <p className="text-silver-700 text-xs mt-1">{engraving.length}/30 characters</p>
+                <p className="text-stone-500 text-xs mt-1 font-medium">{engraving.length}/30 characters</p>
               </div>
             )}
 
             {/* Quantity & Cart */}
             <div className="flex gap-3">
-              <div className="flex items-center border border-white/10 rounded-xl overflow-hidden">
+              <div className="flex items-center border border-stone-200 rounded shadow-sm bg-white overflow-hidden">
                 <button onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                  className="w-11 h-12 flex items-center justify-center text-silver-400 hover:text-white hover:bg-white/5 text-lg font-medium">−</button>
-                <span className="w-10 text-center text-white font-semibold">{quantity}</span>
+                  className="w-12 h-12 flex items-center justify-center text-stone-500 hover:text-[#1F1F1F] hover:bg-stone-50 text-xl font-medium transition-colors">−</button>
+                <span className="w-10 text-center text-[#1F1F1F] font-bold text-lg">{quantity}</span>
                 <button onClick={() => setQuantity(q => Math.min(10, q + 1))}
-                  className="w-11 h-12 flex items-center justify-center text-silver-400 hover:text-white hover:bg-white/5 text-lg font-medium">+</button>
+                  className="w-12 h-12 flex items-center justify-center text-stone-500 hover:text-[#1F1F1F] hover:bg-stone-50 text-xl font-medium transition-colors">+</button>
               </div>
 
               <button
                 id="add-to-cart-detail"
                 onClick={handleAddToCart}
                 disabled={variant?.stock === 0}
-                className="flex-1 btn-primary py-3"
+                className="flex-1 bg-black text-white hover:bg-[#c8a97e] font-bold uppercase tracking-wider transition-colors py-3 px-6 rounded shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <FiShoppingCart size={18} />
                 {variant?.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
@@ -228,19 +228,19 @@ const ProductDetailPage = () => {
 
               <button
                 onClick={handleToggleWishlist}
-                className={clsx('w-12 h-12 rounded-xl border flex items-center justify-center transition-all',
-                  wishlisted ? 'border-red-500 bg-red-500/10 text-red-400' : 'border-white/10 text-silver-400 hover:border-red-400/50 hover:text-red-400')}
+                className={clsx('w-12 h-12 rounded border flex items-center justify-center transition-all shadow-sm',
+                  wishlisted ? 'border-red-500 bg-red-50 text-red-500' : 'border-stone-200 bg-white text-stone-400 hover:border-red-300 hover:text-red-400')}
                 aria-label="Add to wishlist"
               >
-                <FiHeart size={18} className={wishlisted ? 'fill-current' : ''} />
+                <FiHeart size={20} className={wishlisted ? 'fill-current' : ''} />
               </button>
             </div>
 
             {/* Artisan info */}
             {(product.artisan || product.heritage) && (
-              <div className="p-4 bg-dark-700/50 rounded-xl border border-white/[0.04]">
-                {product.artisan && <p className="text-white text-sm font-medium mb-1">✋ {product.artisan}</p>}
-                {product.heritage && <p className="text-silver-500 text-xs leading-relaxed">{product.heritage}</p>}
+              <div className="p-4 bg-stone-50 rounded border border-stone-200">
+                {product.artisan && <p className="text-[#1F1F1F] text-sm font-bold mb-1">✋ {product.artisan}</p>}
+                {product.heritage && <p className="text-stone-600 text-sm leading-relaxed">{product.heritage}</p>}
               </div>
             )}
 
@@ -251,9 +251,9 @@ const ProductDetailPage = () => {
                 { icon: '📦', label: 'Free shipping ₹5000+' },
                 { icon: '🔄', label: '30-day returns' }
               ].map(({ icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-1 p-3 bg-dark-700/30 rounded-xl text-center">
-                  <span className="text-xl">{icon}</span>
-                  <span className="text-silver-500 text-xs">{label}</span>
+                <div key={label} className="flex flex-col items-center justify-center gap-1.5 p-3 bg-stone-50 border border-stone-100 rounded shadow-sm text-center">
+                  <span className="text-2xl">{icon}</span>
+                  <span className="text-stone-600 text-xs font-medium uppercase tracking-wider">{label}</span>
                 </div>
               ))}
             </div>
@@ -262,14 +262,14 @@ const ProductDetailPage = () => {
 
         {/* ─── Tabs ─── */}
         <div className="mt-14">
-          <div className="flex gap-1 border-b border-white/[0.06] mb-8">
+          <div className="flex gap-1 border-b border-stone-200 mb-8">
             {['description', 'reviews', 'details'].map(tab => (
               <button key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={clsx('px-6 py-3 text-sm font-medium capitalize transition-all border-b-2 -mb-px',
+                className={clsx('px-6 py-4 text-sm font-bold uppercase tracking-wider transition-all border-b-2 -mb-px',
                   activeTab === tab
-                    ? 'border-gold-500 text-gold-400'
-                    : 'border-transparent text-silver-500 hover:text-white')}>
+                    ? 'border-[#1F1F1F] text-[#1F1F1F]'
+                    : 'border-transparent text-stone-500 hover:text-[#1F1F1F]')}>
                 {tab} {tab === 'reviews' && product.rating?.count > 0 && `(${product.rating.count})`}
               </button>
             ))}
@@ -283,7 +283,7 @@ const ProductDetailPage = () => {
               exit={{ opacity: 0 }}
             >
               {activeTab === 'description' && (
-                <div className="prose prose-invert max-w-none text-silver-300 leading-relaxed whitespace-pre-line">
+                <div className="prose max-w-none text-stone-700 leading-relaxed whitespace-pre-line text-lg font-medium">
                   {product.description}
                 </div>
               )}
@@ -294,9 +294,9 @@ const ProductDetailPage = () => {
                     { label: 'Category', value: product.category },
                     { label: 'Stock', value: product.stock }
                   ].map(({ label, value }) => value && (
-                    <div key={label} className="p-4 bg-dark-700/30 rounded-xl">
-                      <p className="text-silver-600 text-xs uppercase tracking-wider mb-1">{label}</p>
-                      <p className="text-white text-sm font-medium">{value}</p>
+                    <div key={label} className="p-4 bg-stone-50 border border-stone-200 rounded">
+                      <p className="text-stone-500 text-xs font-bold uppercase tracking-wider mb-1">{label}</p>
+                      <p className="text-[#1F1F1F] text-sm font-medium">{value}</p>
                     </div>
                   ))}
                 </div>
@@ -305,34 +305,34 @@ const ProductDetailPage = () => {
               {activeTab === 'reviews' && (
                 <div className="space-y-8">
                   {/* Review form */}
-                  <div className="card p-6">
-                    <h3 className="font-serif text-xl text-white mb-4">Write a Review</h3>
+                  <div className="card p-6 bg-stone-50 border border-stone-200 shadow-sm rounded-lg">
+                    <h3 className="font-serif text-xl text-[#1F1F1F] mb-4">Write a Review</h3>
                     <form onSubmit={handleSubmitReview} className="space-y-4">
                       <div>
-                        <label className="input-label">Your Rating</label>
+                        <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Your Rating</label>
                         <div className="flex gap-2">
                           {[1,2,3,4,5].map(r => (
                             <button key={r} type="button"
                               onClick={() => setReviewForm(f => ({ ...f, rating: r }))}
                               className={clsx('text-2xl transition-transform hover:scale-110',
-                                r <= reviewForm.rating ? 'text-gold-400' : 'text-silver-800')}>
+                                r <= reviewForm.rating ? 'text-[#c8a97e]' : 'text-stone-300')}>
                               ★
                             </button>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <label className="input-label">Your Review</label>
+                        <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Your Review</label>
                         <textarea
                           value={reviewForm.comment}
                           onChange={(e) => setReviewForm(f => ({ ...f, comment: e.target.value }))}
                           rows={4}
                           placeholder="Share your experience with this product..."
-                          className="input resize-none"
+                          className="w-full bg-white border border-stone-200 text-[#1F1F1F] rounded px-4 py-3 text-sm focus:border-[#1F1F1F] focus:ring-1 focus:ring-[#1F1F1F] outline-none transition-all resize-none shadow-sm"
                           maxLength={500}
                         />
                       </div>
-                      <button type="submit" disabled={submittingReview} className="btn-primary">
+                      <button type="submit" disabled={submittingReview} className="bg-black text-white hover:bg-[#c8a97e] font-bold uppercase tracking-wider transition-colors py-3 px-6 rounded shadow-lg disabled:opacity-50">
                         {submittingReview ? 'Submitting...' : 'Submit Review'}
                       </button>
                     </form>
@@ -342,24 +342,24 @@ const ProductDetailPage = () => {
                   {product.reviews?.length > 0 ? (
                     <div className="space-y-4">
                       {product.reviews.map((review, i) => (
-                        <div key={i} className="card p-5">
+                        <div key={i} className="card p-5 bg-stone-50 border border-stone-200 rounded-lg shadow-sm">
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-full bg-gold-700 flex items-center justify-center text-white text-sm font-bold">
+                              <div className="w-10 h-10 rounded-full bg-[#c8a97e] flex items-center justify-center text-white text-sm font-bold">
                                 {review.name?.[0] || 'U'}
                               </div>
                               <div>
-                                <p className="text-white text-sm font-medium">{review.name || 'User'}</p>
+                                <p className="text-[#1F1F1F] text-sm font-bold">{review.name || 'User'}</p>
                                 <div className="flex gap-0.5">
                                   {[1,2,3,4,5].map(r => (
-                                    <span key={r} className={r <= review.rating ? 'text-gold-400 text-xs' : 'text-silver-800 text-xs'}>★</span>
+                                    <span key={r} className={r <= review.rating ? 'text-[#c8a97e] text-xs' : 'text-stone-300 text-xs'}>★</span>
                                   ))}
                                 </div>
                               </div>
                             </div>
-                            {review.verified && <span className="badge-success text-xs">Verified Purchase</span>}
+                            {review.verified && <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Verified Purchase</span>}
                           </div>
-                          {review.comment && <p className="text-silver-400 text-sm leading-relaxed">{review.comment}</p>}
+                          {review.comment && <p className="text-stone-600 text-sm leading-relaxed">{review.comment}</p>}
                         </div>
                       ))}
                     </div>
@@ -375,7 +375,7 @@ const ProductDetailPage = () => {
         {/* Related Products */}
         {related?.length > 0 && (
           <div className="mt-20">
-            <h2 className="font-serif text-3xl text-white mb-8">You May Also Like</h2>
+            <h2 className="font-serif text-3xl text-[#1F1F1F] mb-8 font-bold" style={{ fontFamily: 'Georgia, serif' }}>You May Also Like</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
               {related.slice(0, 6).map(p => (
                 <ProductCard key={p._id} product={p} />
@@ -388,6 +388,4 @@ const ProductDetailPage = () => {
   );
 };
 
-// Need to add clsx import
-import clsx from 'clsx';
 export default ProductDetailPage;
