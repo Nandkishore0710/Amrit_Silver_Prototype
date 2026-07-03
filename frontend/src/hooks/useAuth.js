@@ -1,14 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchUser, logout } from '../store/slices/authSlice';
+import { fetchUser, logout, setInitialized } from '../store/slices/authSlice';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
   const { user, token, isAuthenticated, loading, initializing, error } = useSelector(state => state.auth);
 
   useEffect(() => {
-    if (token && !user && initializing) {
-      dispatch(fetchUser());
+    if (initializing) {
+      if (token && !user) {
+        dispatch(fetchUser());
+      } else {
+        dispatch(setInitialized());
+      }
     }
   }, [token, user, initializing, dispatch]);
 
