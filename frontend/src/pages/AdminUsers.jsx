@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../api';
+import mockDb from '../utils/mockDb';
 import { formatDate, getInitials } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
@@ -16,19 +16,24 @@ const AdminUsers = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['admin-users', search, roleFilter, page],
     queryFn: async () => {
-      const { data } = await api.get('/admin/users', { params: { search, role: roleFilter, page, limit: 20 } });
-      return data;
+      let users = mockDb.getUsers();
+      if (search) users = users.filter(u => u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase()));
+      if (roleFilter) users = users.filter(u => u.role === roleFilter);
+      return { data: users, pagination: { pages: 1 } };
     }
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, ...updates }) => api.put(`/admin/users/${id}`, updates),
+    mutationFn: async ({ id, ...updates }) => {
+      const u = mockDb.getUsers().find(u => u._id === id);
+      if (u) mockDb.saveUser({ ...u, ...updates });
+    },
     onSuccess: () => { toast.success('User updated'); queryClient.invalidateQueries(['admin-users']); },
     onError: () => toast.error('Failed to update user')
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => api.delete(`/admin/users/${id}`),
+    mutationFn: async (id) => mockDb.deleteUser(id),
     onSuccess: () => { toast.success('User deleted'); queryClient.invalidateQueries(['admin-users']); },
     onError: () => toast.error('Failed to delete user')
   });
@@ -112,10 +117,10 @@ const AdminUsers = () => {
                       </td>
                       <td className="px-4 py-3">
                         <button
-                          onClick={() => updateMutation.mutate({ id: user._id, isActive: !user.isActive })}
+                          onClick={() => updateMutation.mutate({ id: user._id, isActive: user.isActive === false ? true : false })}
                           className={clsx('badge text-xs cursor-pointer transition-colors',
-                            user.isActive ? 'badge-success hover:bg-red-900/30 hover:text-red-400' : 'badge-danger hover:bg-green-900/30 hover:text-green-400')}>
-                          {user.isActive ? 'Active' : 'Inactive'}
+                            user.isActive !== false ? 'badge-success hover:bg-red-900/30 hover:text-red-400' : 'badge-danger hover:bg-green-900/30 hover:text-green-400')}>
+                          {user.isActive !== false ? 'Active' : 'Inactive'}
                         </button>
                       </td>
                       <td className="px-4 py-3 text-silver-400 text-sm">{user.orderCount || 0}</td>

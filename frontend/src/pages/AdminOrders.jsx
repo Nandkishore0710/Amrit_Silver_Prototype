@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import api from '../api';
+import mockDb from '../utils/mockDb';
 import { formatCurrency, formatDateTime, ORDER_STATUS_COLORS } from '../utils/helpers';
 import { ORDER_STATUSES } from '../utils/constants';
 import toast from 'react-hot-toast';
@@ -18,14 +18,19 @@ const AdminOrders = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['admin-orders', statusFilter, search, page],
     queryFn: async () => {
-      const { data } = await api.get('/admin/orders', { params: { status: statusFilter, search, page, limit: 20 } });
-      return data;
+      let orders = mockDb.getOrders();
+      if (search) orders = orders.filter(o => o.orderNumber.toLowerCase().includes(search.toLowerCase()) || o.user?.name?.toLowerCase().includes(search.toLowerCase()));
+      if (statusFilter) orders = orders.filter(o => o.status === statusFilter);
+      return { data: orders, pagination: { pages: 1 } };
     },
     refetchInterval: 15000
   });
 
   const updateStatusMutation = useMutation({
-    mutationFn: ({ orderId, status }) => api.put(`/admin/orders/${orderId}/status`, { status }),
+    mutationFn: async ({ orderId, status }) => {
+      const o = mockDb.getOrders().find(o => o._id === orderId);
+      if (o) mockDb.saveOrder({ ...o, status });
+    },
     onSuccess: () => {
       toast.success('Order status updated');
       queryClient.invalidateQueries(['admin-orders']);
@@ -103,9 +108,9 @@ const AdminOrders = () => {
                         <p className="text-white text-sm">{order.user?.name}</p>
                         <p className="text-silver-600 text-xs">{order.user?.email}</p>
                       </td>
-                      <td className="px-4 py-3 text-silver-400 text-sm">{order.items.length}</td>
+                      <td className="px-4 py-3 text-silver-400 text-sm">{order.items?.length || 0}</td>
                       <td className="px-4 py-3 text-gold-400 font-semibold text-sm">{formatCurrency(order.finalAmount)}</td>
-                      <td className="px-4 py-3 text-silver-400 text-xs capitalize">{order.payment.method} · {order.payment.status}</td>
+                      <td className="px-4 py-3 text-silver-400 text-xs capitalize">{order.payment?.method} · {order.payment?.status}</td>
                       <td className="px-4 py-3">
                         <span className={clsx('badge text-xs', ORDER_STATUS_COLORS[order.status] || 'badge-silver')}>
                           {order.status.replace('_', ' ')}

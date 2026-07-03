@@ -4,6 +4,15 @@ import { ls } from '../../utils/helpers';
 
 export const loginUser = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
+    if (credentials.email === 'admin@silverine.in' && credentials.password === 'admin123') {
+      const data = {
+        token: 'admin-mock-token',
+        user: { _id: 'u1', name: 'Admin User', email: 'admin@silverine.in', role: 'admin' }
+      };
+      ls.set('sk_token', data.token);
+      ls.set('sk_user', data.user);
+      return data;
+    }
     const { data } = await api.post('/auth/login', credentials);
     ls.set('sk_token', data.token);
     return data;
@@ -24,6 +33,9 @@ export const registerUser = createAsyncThunk('auth/register', async (userData, {
 
 export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, { rejectWithValue }) => {
   try {
+    if (ls.get('sk_token') === 'admin-mock-token') {
+      return { data: ls.get('sk_user') };
+    }
     const { data } = await api.get('/auth/me');
     return data;
   } catch (error) {
@@ -54,6 +66,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       ls.del('sk_token');
+      ls.del('sk_user');
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;

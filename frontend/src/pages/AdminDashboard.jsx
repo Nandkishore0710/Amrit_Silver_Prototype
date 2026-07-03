@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../hooks/useAuth';
 import { formatCurrency, formatDate } from '../utils/helpers';
 import { ORDER_STATUS_COLORS } from '../utils/helpers';
-import api from '../api';
+import mockDb from '../utils/mockDb';
 import { io } from 'socket.io-client';
 import { FiPackage, FiUsers, FiDollarSign, FiTrendingUp, FiAlertTriangle, FiLogOut, FiShoppingBag, FiSettings } from 'react-icons/fi';
 import clsx from 'clsx';
@@ -65,38 +65,49 @@ const AdminDashboard = () => {
 
   const { data: stats, refetch: refetchStats } = useQuery({
     queryKey: ['admin', 'stats'],
-    queryFn: async () => { const { data } = await api.get('/admin/stats'); return data.data; },
+    queryFn: async () => mockDb.getStats(),
     refetchInterval: 30000
   });
 
   const { data: revenueData } = useQuery({
     queryKey: ['admin', 'revenue'],
-    queryFn: async () => { const { data } = await api.get('/admin/stats/revenue', { params: { period: 'month' } }); return data.data; }
+    queryFn: async () => {
+      const stats = mockDb.getStats();
+      return [{ date: new Date().toISOString().split('T')[0], revenue: stats.revenue.total }];
+    }
   });
 
   const { data: orderStatusData } = useQuery({
     queryKey: ['admin', 'orderStatus'],
-    queryFn: async () => { const { data } = await api.get('/admin/stats/orders'); return data.data; }
+    queryFn: async () => {
+      const orders = mockDb.getOrders();
+      const counts = orders.reduce((acc, o) => { acc[o.status] = (acc[o.status] || 0) + 1; return acc; }, {});
+      return Object.entries(counts).map(([status, count]) => ({ status, count }));
+    }
   });
 
   const { data: topProducts } = useQuery({
     queryKey: ['admin', 'topProducts'],
-    queryFn: async () => { const { data } = await api.get('/admin/stats/top-products'); return data.data; }
+    queryFn: async () => mockDb.getProducts().slice(0, 5).map(p => ({ ...p, sold: 10, revenue: p.price * 10, percentage: 80 }))
   });
 
   const { data: categoryData } = useQuery({
     queryKey: ['admin', 'categories'],
-    queryFn: async () => { const { data } = await api.get('/admin/stats/categories'); return data.data; }
+    queryFn: async () => {
+      const products = mockDb.getProducts();
+      const catCount = products.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + p.price; return acc; }, {});
+      return Object.entries(catCount).map(([category, revenue]) => ({ category, revenue }));
+    }
   });
 
   const { data: alerts } = useQuery({
     queryKey: ['admin', 'inventory'],
-    queryFn: async () => { const { data } = await api.get('/admin/inventory/alerts'); return data.data; }
+    queryFn: async () => mockDb.getProducts().filter(p => p.stock < 10)
   });
 
   const { data: recentOrders } = useQuery({
     queryKey: ['admin', 'orders', 'recent'],
-    queryFn: async () => { const { data } = await api.get('/admin/orders', { params: { limit: 10, sort: 'newest' } }); return data.data; },
+    queryFn: async () => mockDb.getOrders(),
     refetchInterval: 15000
   });
 

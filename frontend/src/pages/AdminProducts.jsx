@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiSearch } from 'react-icons/fi';
-import api from '../api';
+import mockDb from '../utils/mockDb';
 import { formatCurrency, formatDate } from '../utils/helpers';
 import { CATEGORIES } from '../utils/constants';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -23,13 +23,18 @@ const AdminProducts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['admin-products', search, categoryFilter, page],
     queryFn: async () => {
-      const { data } = await api.get('/products', { params: { search, category: categoryFilter, page, limit: 20 } });
-      return data;
+      let products = mockDb.getProducts();
+      if (search) products = products.filter(p => p.title.toLowerCase().includes(search.toLowerCase()));
+      if (categoryFilter) products = products.filter(p => p.category === categoryFilter);
+      return { data: products, pagination: { pages: 1 } };
     }
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (slug) => api.delete(`/products/${slug}`),
+    mutationFn: async (slug) => {
+      const p = mockDb.getProduct(slug);
+      if(p) mockDb.deleteProduct(p._id);
+    },
     onSuccess: () => {
       toast.success('Product deleted');
       setDeleteConfirm(null);
@@ -43,10 +48,10 @@ const AdminProducts = () => {
   const onSubmit = async (data) => {
     try {
       if (editProduct) {
-        await api.put(`/products/${editProduct.slug}`, data);
+        mockDb.saveProduct({ ...editProduct, title: data.name, ...data });
         toast.success('Product updated!');
       } else {
-        await api.post('/products', data);
+        mockDb.saveProduct({ title: data.name, price: data.basePrice, ...data });
         toast.success('Product created!');
       }
       queryClient.invalidateQueries(['admin-products']);
@@ -61,9 +66,9 @@ const AdminProducts = () => {
   const openEdit = (product) => {
     setEditProduct(product);
     reset({
-      name: product.name,
+      name: product.title || product.name,
       category: product.category,
-      basePrice: product.basePrice,
+      basePrice: product.price || product.basePrice,
       description: product.description
     });
     setModalOpen(true);
@@ -144,18 +149,18 @@ const AdminProducts = () => {
                           <img src={product.images?.[0]?.url} alt={product.name}
                             className="w-10 h-10 rounded-lg object-cover bg-dark-700 shrink-0" />
                           <div>
-                            <p className="text-white text-sm font-medium truncate max-w-[160px]">{product.name}</p>
+                            <p className="text-white text-sm font-medium truncate max-w-[160px]">{product.title || product.name}</p>
                             <p className="text-silver-700 text-xs">{product.slug}</p>
                           </div>
                         </div>
                       </td>
                       <td className="px-4 py-3 text-silver-400 text-sm">{product.category}</td>
-                      <td className="px-4 py-3 text-gold-400 font-semibold text-sm">{formatCurrency(product.basePrice)}</td>
+                      <td className="px-4 py-3 text-gold-400 font-semibold text-sm">{formatCurrency(product.price || product.basePrice)}</td>
                       <td className="px-4 py-3">
                         <span className={clsx('text-sm font-medium',
                           product.totalStock === 0 ? 'text-red-400' :
                           product.totalStock <= 5 ? 'text-amber-400' : 'text-green-400')}>
-                          {product.totalStock ?? product.variants?.reduce((s, v) => s + v.stock, 0) ?? '-'}
+                          {product.stock ?? product.totalStock ?? product.variants?.reduce((s, v) => s + v.stock, 0) ?? '-'}
                         </span>
                       </td>
                       <td className="px-4 py-3">

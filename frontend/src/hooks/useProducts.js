@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../api';
-import { mockProducts } from '../mockData';
+import mockDb from '../utils/mockDb';
 
 // Simulated delay to mimic network latency
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -10,7 +10,7 @@ export const useProducts = (params = {}) => {
     queryKey: ['products', params],
     queryFn: async () => {
       await delay(500);
-      let filtered = [...mockProducts];
+      let filtered = mockDb.getProducts();
       if (params.category) {
         filtered = filtered.filter(p => p.category.toLowerCase() === params.category.toLowerCase());
       }
@@ -29,7 +29,7 @@ export const useProduct = (slug) => {
     queryKey: ['product', slug],
     queryFn: async () => {
       await delay(500);
-      const product = mockProducts.find(p => p.slug === slug);
+      const product = mockDb.getProduct(slug);
       if (!product) throw new Error('Product not found');
       return product;
     },
@@ -43,7 +43,7 @@ export const useFeaturedProducts = () => {
     queryKey: ['products', 'featured'],
     queryFn: async () => {
       await delay(500);
-      return mockProducts.filter(p => p.featured);
+      return mockDb.getProducts().filter(p => p.featured);
     },
     staleTime: 30 * 60 * 1000
   });
@@ -54,7 +54,7 @@ export const useBestSellers = () => {
     queryKey: ['products', 'best-sellers'],
     queryFn: async () => {
       await delay(500);
-      return mockProducts.sort((a, b) => b.rating - a.rating).slice(0, 4);
+      return mockDb.getProducts().sort((a, b) => b.rating - a.rating).slice(0, 4);
     },
     staleTime: 30 * 60 * 1000
   });
@@ -65,7 +65,7 @@ export const useNewArrivals = () => {
     queryKey: ['products', 'new-arrivals'],
     queryFn: async () => {
       await delay(500);
-      return mockProducts.slice(0, 4);
+      return mockDb.getProducts().slice(0, 4);
     },
     staleTime: 30 * 60 * 1000
   });
@@ -76,9 +76,9 @@ export const useRelatedProducts = (slug) => {
     queryKey: ['products', 'related', slug],
     queryFn: async () => {
       await delay(500);
-      const product = mockProducts.find(p => p.slug === slug);
+      const product = mockDb.getProduct(slug);
       if (!product) return [];
-      return mockProducts.filter(p => p.category === product.category && p.slug !== slug).slice(0, 4);
+      return mockDb.getProducts().filter(p => p.category === product.category && p.slug !== slug).slice(0, 4);
     },
     enabled: !!slug
   });
