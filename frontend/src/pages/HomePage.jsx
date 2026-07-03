@@ -10,9 +10,9 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const heroSlides = [
-    { image: '/slider1.png', bg: 'bg-[#C65D3B]' },
+    { image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#1a1a1a]' },
     { image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#2b2b2b]' },
-    { image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca066b?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#1a1a1a]' }
+    { image: 'https://images.unsplash.com/photo-1605170439002-90845e8c0137?q=80&w=1920&auto=format&fit=crop', bg: 'bg-[#333333]' }
   ];
 
   useEffect(() => {
@@ -43,11 +43,14 @@ const HomePage = () => {
       {/* Hero Banner Section (Auto-Rotating Slider) */}
       <section className={`w-full relative ${heroSlides[currentSlide].bg} text-white overflow-hidden group transition-colors duration-1000`}>
         
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center transition-all duration-1000 opacity-60 mix-blend-overlay"
-          style={{ backgroundImage: `url(${heroSlides[currentSlide].image})` }}
-        ></div>
+        {/* Background Images with Smooth Crossfade */}
+        {heroSlides.map((slide, index) => (
+          <div 
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out mix-blend-overlay ${currentSlide === index ? 'opacity-60' : 'opacity-0'}`}
+            style={{ backgroundImage: `url(${slide.image})` }}
+          ></div>
+        ))}
         
         {/* Slider Controls */}
         <button 
