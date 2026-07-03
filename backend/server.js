@@ -117,8 +117,7 @@ mongoose.connect(process.env.MONGO_URI, {
     await seedDatabase();
   }
 }).catch(err => {
-  logger.error('MongoDB connection error:', err);
-  process.exit(1);
+  logger.error('MongoDB connection error. Ensure MONGO_URI is set in Vercel.', err);
 });
 
 connectRedis().then(() => {
