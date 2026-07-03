@@ -38,7 +38,9 @@ const AdminProducts = () => {
     onSuccess: () => {
       toast.success('Product deleted');
       setDeleteConfirm(null);
-      queryClient.invalidateQueries(['admin-products']);
+      queryClient.invalidateQueries({ queryKey: ['admin-products'] });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: ['product'] });
     },
     onError: () => toast.error('Failed to delete product')
   });
@@ -54,7 +56,9 @@ const AdminProducts = () => {
         mockDb.saveProduct({ title: data.name, ...data, price: Number(data.price), salePrice: Number(data.salePrice) });
         toast.success('Product created!');
       }
-      queryClient.invalidateQueries(['admin-products']);
+      queryClient.invalidateQueries({ queryKey: ['admin-products'] });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: ['product'] });
       setModalOpen(false);
       setEditProduct(null);
       reset();
