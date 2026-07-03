@@ -12,6 +12,7 @@ import ProductCard, { ProductCardSkeleton } from '../components/ProductCard';
 import { useFeaturedProducts, useBestSellers, useNewArrivals } from '../hooks/useProducts';
 import { CATEGORIES } from '../utils/constants';
 import { useInView } from 'react-intersection-observer';
+import TestimonialSection from '../components/TestimonialSection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -307,6 +308,9 @@ const HomePage = () => {
           </div>
         </Section>
       )}
+
+      {/* ─── Testimonials ─── */}
+      <TestimonialSection />
 
       {/* ─── CTA Banner ─── */}
       <section className="py-20 bg-gradient-to-r from-gold-900/30 via-dark-800 to-gold-900/30 border-y border-gold-900/20">
