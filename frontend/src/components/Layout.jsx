@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
   if (initializing) return null;
 
   return (
-    <div className="min-h-screen bg-dark-900 flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {!isAdminPage && <Navbar />}
       <AnimatePresence mode="wait">
         <motion.main

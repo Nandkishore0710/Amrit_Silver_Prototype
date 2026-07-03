@@ -21,13 +21,27 @@ const HomePage = () => {
 
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* hero */}
-        <div className="silverine-banner">
-            <div>
-                <h2>Crafting <strong>Stories</strong> in Silver</h2>
-                <p className="tagline">Premium 92.5 sterling silver phone covers and accessories.</p>
+        <div className="silverine-banner" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', padding: '0', overflow: 'hidden', alignItems: 'center' }}>
+            <div style={{ padding: '48px' }}>
+                <h2 style={{ fontSize: '42px', lineHeight: '1.2' }}>Premium <strong>Silver</strong> Covers</h2>
+                <p className="tagline" style={{ margin: '16px 0 32px' }}>Experience true 92.5 sterling silver craftsmanship. Interact with our signature Orchid Lace case in full 3D.</p>
+                <Link to="/products" className="silverine-badge" style={{ padding: '14px 32px', fontSize: '16px' }}>Shop Collection</Link>
             </div>
-            <div>
-                <Link to="/products" className="silverine-badge">Shop Collection</Link>
+            <div className="sketchfab-embed-wrapper" style={{ width: '100%', height: '100%', minHeight: '400px' }}>
+                <iframe
+                    title="Orchid Lace Phone Case"
+                    frameBorder="0"
+                    allowFullScreen
+                    mozallowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    src="https://sketchfab.com/models/97b77b05e4754b8a9e671ea0d9c7843d/embed?autostart=1&transparent=1&ui_animations=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0"
+                    style={{ width: '100%', height: '100%', border: 'none' }}
+                ></iframe>
             </div>
         </div>
 
