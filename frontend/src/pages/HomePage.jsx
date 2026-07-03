@@ -24,11 +24,11 @@ const HomePage = () => {
 
   const categories = [
     { name: 'Divine Lords', image: 'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=200&auto=format&fit=crop', link: '/products?category=Divine Lords' },
-    { name: 'Raj Gharana', image: 'https://images.unsplash.com/photo-1541480601022-2308c0f01587?q=80&w=200&auto=format&fit=crop', link: '/products?category=Raj Gharana' },
+    { name: 'Raj Gharana', image: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=200&auto=format&fit=crop', link: '/products?category=Raj Gharana' },
     { name: 'Name and Logo', image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=200&auto=format&fit=crop', link: '/products?category=Name and Logo' },
-    { name: 'Flower Bloom', image: 'https://images.unsplash.com/photo-1592890288564-76628a30a657?q=80&w=200&auto=format&fit=crop', link: '/products?category=Flower Bloom' },
-    { name: 'Spirit Animals', image: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=200&auto=format&fit=crop', link: '/products?category=Spirit Animals' },
-    { name: 'Custom Designs', image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?q=80&w=200&auto=format&fit=crop', link: '/products?category=Custom Designs' }
+    { name: 'Flower Bloom', image: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=200&auto=format&fit=crop', link: '/products?category=Flower Bloom' },
+    { name: 'Spirit Animals', image: 'https://images.unsplash.com/photo-1551650992-ee4b52a59f51?q=80&w=200&auto=format&fit=crop', link: '/products?category=Spirit Animals' },
+    { name: 'Custom Designs', image: 'https://images.unsplash.com/photo-1575695328058-29be3797669d?q=80&w=200&auto=format&fit=crop', link: '/products?category=Custom Designs' }
   ];
 
   return (
