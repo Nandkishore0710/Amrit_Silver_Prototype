@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ls } from '../../utils/helpers';
 import toast from 'react-hot-toast';
 
-const loadCart = () => ls.get('sk_cart') || [];
+const loadCart = () => {
+  const items = ls.get('sk_cart') || [];
+  return items.filter(item => typeof item.price === 'number' && !isNaN(item.price));
+};
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -25,10 +28,9 @@ const cartSlice = createSlice({
         );
         toast.success('Cart updated!');
       } else {
-        const price = variant?.discountPrice || variant?.price || product.basePrice;
-        const finalPrice = product.discount?.percentage && new Date(product.discount.validUntil) > new Date()
-          ? price * (1 - product.discount.percentage / 100)
-          : price;
+        const price = variant?.salePrice || variant?.price || product.salePrice || product.price || 0;
+        const original = variant?.price || product.price || price;
+        const finalPrice = price;
 
         state.items.push({
           productId: product._id,
@@ -37,7 +39,7 @@ const cartSlice = createSlice({
           slug: product.slug,
           image: product.images?.find(i => i.isPrimary)?.url || product.images?.[0]?.url,
           price: Math.round(finalPrice * 100) / 100,
-          originalPrice: price,
+          originalPrice: original,
           metal: variant?.metal,
           sku: variant?.sku,
           quantity,
