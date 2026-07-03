@@ -88,6 +88,7 @@ const HomePage = () => {
         <Swiper
           modules={[Autoplay, Pagination, EffectFade]}
           effect="fade"
+          fadeEffect={{ crossFade: true }}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           loop
@@ -95,37 +96,39 @@ const HomePage = () => {
         >
           {heroSlides.map((slide, i) => (
             <SwiperSlide key={i}>
-              <div className="relative h-full">
-                <img src={slide.bg} alt={slide.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark-950/90 via-dark-900/60 to-transparent" />
-                <div className="absolute inset-0 bg-hero-pattern" />
-                <div className="relative h-full page-container flex items-center">
-                  <motion.div
-                    initial={{ opacity: 0, x: -40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="max-w-xl"
-                  >
-                    <span className="badge-gold mb-4 inline-block">{slide.tag}</span>
-                    <h1 className="font-serif text-5xl md:text-7xl text-white font-bold leading-tight mb-4 whitespace-pre-line">
-                      {slide.title.split('\n')[0]}
-                      <span className="text-gold-gradient block">{slide.title.split('\n')[1]}</span>
-                    </h1>
-                    <p className="text-silver-300 text-lg mb-8 leading-relaxed">{slide.subtitle}</p>
-                    <div className="flex gap-4 flex-wrap">
-                      <Link to={slide.ctaLink} className="btn-primary text-base px-8 py-4">
-                        {slide.cta} <FiArrowRight />
-                      </Link>
-                      <Link to="/products" className="btn-secondary text-base px-8 py-4">
-                        View All
-                      </Link>
-                    </div>
-                  </motion.div>
+              {({ isActive }) => (
+                <div className="relative h-full">
+                  <img src={slide.bg} alt={slide.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-dark-950/90 via-dark-900/60 to-transparent" />
+                  <div className="absolute inset-0 bg-hero-pattern" />
+                  <div className="relative h-full page-container flex items-center">
+                    <motion.div
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -40 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="max-w-xl"
+                    >
+                      <span className="badge-gold mb-4 inline-block">{slide.tag}</span>
+                      <h1 className="font-serif text-5xl md:text-7xl text-white font-bold leading-tight mb-4 whitespace-pre-line">
+                        {slide.title.split('\n')[0]}
+                        <span className="text-gold-gradient block">{slide.title.split('\n')[1]}</span>
+                      </h1>
+                      <p className="text-silver-300 text-lg mb-8 leading-relaxed">{slide.subtitle}</p>
+                      <div className="flex gap-4 flex-wrap">
+                        <Link to={slide.ctaLink} className="btn-primary text-base px-8 py-4">
+                          {slide.cta} <FiArrowRight />
+                        </Link>
+                        <Link to="/products" className="btn-secondary text-base px-8 py-4">
+                          View All
+                        </Link>
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
