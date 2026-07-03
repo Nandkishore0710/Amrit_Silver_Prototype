@@ -3,16 +3,24 @@ export const formatCurrency = (amount, currency = 'INR') =>
   new Intl.NumberFormat('en-IN', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount);
 
 // Date formatting
-export const formatDate = (dateString, options = {}) =>
-  new Intl.DateTimeFormat('en-IN', {
-    day: 'numeric', month: 'short', year: 'numeric', ...options
-  }).format(new Date(dateString));
+export const formatDate = (dateString, options = {}) => {
+  if (!dateString) return '-';
+  try {
+    return new Intl.DateTimeFormat('en-IN', {
+      day: 'numeric', month: 'short', year: 'numeric', ...options
+    }).format(new Date(dateString));
+  } catch (e) { return '-'; }
+};
 
-export const formatDateTime = (dateString) =>
-  new Intl.DateTimeFormat('en-IN', {
-    day: 'numeric', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit'
-  }).format(new Date(dateString));
+export const formatDateTime = (dateString) => {
+  if (!dateString) return '-';
+  try {
+    return new Intl.DateTimeFormat('en-IN', {
+      day: 'numeric', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }).format(new Date(dateString));
+  } catch (e) { return '-'; }
+};
 
 // Slug to title
 export const slugToTitle = (slug) =>
