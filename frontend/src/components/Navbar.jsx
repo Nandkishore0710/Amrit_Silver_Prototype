@@ -21,11 +21,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center text-decoration-none">
-          <div className="silverine-logo">Silver<span>ine</span></div>
-        </Link>
+    <>
+      <div className="silverine-topbar py-1.5 px-4 flex justify-between items-center text-[13px]">
+        <div className="flex items-center gap-4">
+          <a href="#" className="hover:text-gray-300 transition-colors"><i className="fab fa-instagram"></i></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><i className="fab fa-facebook-f"></i></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><i className="fab fa-youtube"></i></a>
+        </div>
+        <div className="text-center flex-1 font-medium tracking-wide">
+          WELCOME TO WORLDWIDE SILVERINE
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="#" className="hover:text-gray-300 transition-colors">Contact</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">FAQs</a>
+        </div>
+      </div>
+      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center text-decoration-none mr-8">
+            <h1 className="text-2xl font-bold tracking-widest text-[#1F1F1F] uppercase" style={{ fontFamily: 'var(--pls-primary-font)' }}>Silverine</h1>
+          </Link>
 
         <div className="hidden md:flex items-center gap-6">
           <Link to="/products?category=Mobile Covers" className="text-stone-600 hover:text-stone-900 text-sm font-medium">Mobile Covers</Link>
@@ -86,25 +101,26 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 py-4 px-4 shadow-lg absolute w-full z-40">
-          <Link to="/products?category=Mobile Covers" onClick={() => setIsOpen(false)} className="block py-2 text-stone-600">Mobile Covers</Link>
-          <Link to="/products?category=Jewelry" onClick={() => setIsOpen(false)} className="block py-2 text-stone-600">Jewelry</Link>
-          <Link to="/products?category=Idols" onClick={() => setIsOpen(false)} className="block py-2 text-stone-600">Idols</Link>
-          <Link to="/products?category=Bracelets" onClick={() => setIsOpen(false)} className="block py-2 text-stone-600">Bracelets</Link>
-          <Link to="/products?sort=best-sellers" onClick={() => setIsOpen(false)} className="block py-2 text-stone-600">Best Sellers</Link>
-          <form onSubmit={handleSearch} className="mt-2 flex border border-gray-300 rounded-full px-3 py-1 bg-white">
+        <div className="md:hidden bg-white border-t border-gray-100 py-4 px-4 shadow-lg absolute w-full z-40">
+          <Link to="/products?category=Mobile Covers" onClick={() => setIsOpen(false)} className="block py-3 text-[#1F1F1F] font-medium border-b border-gray-50 uppercase text-sm">Mobile Covers</Link>
+          <Link to="/products?category=Jewelry" onClick={() => setIsOpen(false)} className="block py-3 text-[#1F1F1F] font-medium border-b border-gray-50 uppercase text-sm">Jewelry</Link>
+          <Link to="/products?category=Idols" onClick={() => setIsOpen(false)} className="block py-3 text-[#1F1F1F] font-medium border-b border-gray-50 uppercase text-sm">Idols</Link>
+          <Link to="/products?category=Bracelets" onClick={() => setIsOpen(false)} className="block py-3 text-[#1F1F1F] font-medium border-b border-gray-50 uppercase text-sm">Bracelets</Link>
+          <Link to="/products?sort=best-sellers" onClick={() => setIsOpen(false)} className="block py-3 text-danger font-medium border-b border-gray-50 uppercase text-sm">Hotshots</Link>
+          <form onSubmit={handleSearch} className="mt-4 flex border border-gray-300 rounded-full px-4 py-2 bg-white">
             <input
               type="text"
-              placeholder="Search..."
-              className="outline-none bg-transparent text-sm flex-1 text-stone-800"
+              placeholder="Search products..."
+              className="outline-none bg-transparent text-sm flex-1 text-[#1F1F1F]"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit" className="text-stone-500"><FaSearch /></button>
+            <button type="submit" className="text-[#1F1F1F]"><FaSearch /></button>
           </form>
         </div>
       )}
-    </nav>
+      </nav>
+    </>
   );
 };
 
